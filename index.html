@@ -189,6 +189,25 @@ section{padding:80px 24px}
 }
 .form button:hover{background:var(--brass)}
 .form-note{font-size:.8rem;color:#43525C;margin-top:10px}
+.map-wrap{
+  margin-top:36px;border:1px solid var(--line);border-radius:6px;overflow:hidden;
+  box-shadow:0 12px 30px rgba(27,42,51,.08);
+}
+.map-wrap iframe{width:100%;height:340px;border:0;display:block}
+
+/* زر واتساب العائم */
+.whatsapp-fab{
+  position:fixed;bottom:22px;left:22px;z-index:200;
+  width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;
+  display:flex;align-items:center;justify-content:center;text-decoration:none;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);transition:transform .2s;
+}
+.whatsapp-fab:hover{transform:scale(1.08)}
+.whatsapp-fab svg{width:30px;height:30px}
+@media(max-width:860px){
+  .whatsapp-fab{bottom:16px;left:16px;width:50px;height:50px}
+  .whatsapp-fab svg{width:26px;height:26px}
+}
 
 /* التذييل */
 footer{background:var(--ink);color:rgba(247,244,238,.7);padding:36px 24px;text-align:center;font-size:.85rem}
@@ -222,6 +241,10 @@ footer .foot-star svg{width:28px;height:28px;color:var(--brass)}
 </style>
 </head>
 <body>
+
+<a class="whatsapp-fab" href="https://wa.me/212640150658" target="_blank" rel="noopener" aria-label="تواصلوا معنا عبر واتساب">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.02 2C6.5 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.09-1.34A9.94 9.94 0 0 0 12.02 22C17.5 22 22 17.52 22 12S17.5 2 12.02 2Zm5.78 14.11c-.24.68-1.38 1.3-1.9 1.37-.5.07-1.06.31-3.55-.74-2.98-1.25-4.88-4.26-5.03-4.46-.15-.2-1.2-1.6-1.2-3.05s.75-2.17 1.02-2.47c.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.06.64.49.24.58.8 2 .87 2.14.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.29.15.46.12.63-.07.17-.2.72-.84.92-1.13.19-.29.39-.24.65-.15.27.1 1.69.8 1.98.94.29.15.48.22.55.34.07.12.07.68-.17 1.36Z"/></svg>
+</a>
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -479,6 +502,15 @@ footer .foot-star svg{width:28px;height:28px;color:var(--brass)}
         <button onclick="alert('شكراً لتواصلكم. سيتصل بكم المكتب في أقرب وقت. (اربط هذا النموذج ببريدك الإلكتروني عند النشر)')">أرسل الطلب</button>
         <p class="form-note">تُعالج معلوماتكم بسرية تامة وفق السر المهني للمحامي.</p>
       </div>
+    </div>
+    <div class="map-wrap">
+      <iframe
+        src="https://www.google.com/maps?q=%D8%AD%D9%8A%20%D8%A7%D9%84%D8%B3%D8%B9%D8%A7%D8%AF%D8%A9%20%D8%B7%D8%B1%D9%8A%D9%82%20%D8%A7%D9%84%D9%85%D9%86%D8%B2%D9%84%20%D8%B5%D9%81%D8%B1%D9%88%20%D8%A7%D9%84%D9%85%D8%BA%D8%B1%D8%A8&output=embed"
+        title="موقع مكتب الأستاذ محسن المخفي على الخريطة"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
 </section>
