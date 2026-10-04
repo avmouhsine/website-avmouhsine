@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="elm-portal-page" content="1">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#2b1e12">
+<title>بوابة الموكلين</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b1e12; --ink-light:#4a3a24; --parchment:#f6f1e7; --card:#fffdf9;
+    --brass:#a9822f; --brass-light:#c9a962; --green:#3b5d45; --green-bg:#e3ebe4;
+    --rust:#a13d2b; --rust-bg:#f3e2dd; --amber-bg:#f1e8d2; --blue:#2f5476; --blue-bg:#e5edf4;
+    --slate:#6b7280; --border:#e6dcc3; --shadow:0 4px 14px rgba(43,30,18,.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Tajawal',system-ui,sans-serif;background:var(--parchment);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.6;}
+  h1,h2,h3{font-family:'Amiri',serif;margin:0;}
+  button,input{font-family:inherit;}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;}
+  header{background:linear-gradient(180deg,var(--ink),var(--ink-light));color:#f6f1e7;border-bottom:3px solid var(--brass);padding:18px 16px;}
+  .hd{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:14px;}
+  .hd img{width:52px;height:52px;object-fit:contain;border-radius:10px;background:#fffdf9;padding:3px;}
+  .hd .t{font-family:'Amiri',serif;font-size:22px;font-weight:700;line-height:1.2;}
+  .hd .s{font-size:12.5px;color:var(--brass-light);}
+  .hd .sp{flex:1;}
+  .hd button{background:transparent;border:1px solid var(--brass);color:#f6f1e7;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;}
+  main{max-width:860px;margin:0 auto;padding:18px 16px 60px;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:18px;margin-bottom:16px;}
+  .login{max-width:420px;margin:30px auto;text-align:center;}
+  .login h2{font-size:26px;margin-bottom:4px;}
+  .login p{color:var(--slate);font-size:13.5px;margin:0 0 16px;}
+  .login input[type=text],.login input[type=password]{width:100%;padding:13px 14px;font-size:17px;text-align:center;border:1.5px solid var(--border);border-radius:10px;background:var(--parchment);margin-bottom:10px;}
+  .login input:focus{outline:none;border-color:var(--brass);}
+  .login label.rm{display:flex;gap:8px;align-items:center;justify-content:center;font-size:13px;color:var(--slate);margin:2px 0 12px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:700;cursor:pointer;background:var(--ink);color:#f6f1e7;text-decoration:none;}
+  .btn.full{width:100%;}
+  .btn.brass{background:var(--brass);}
+  .btn.green{background:#25a35a;}
+  .btn.sm{padding:7px 12px;font-size:13px;border-radius:8px;}
+  .msg{min-height:20px;margin-top:10px;font-size:13.5px;color:var(--rust);}
+  .note{font-size:12px;color:var(--slate);margin-top:14px;}
+  .hello h2{font-size:24px;}
+  .hello .upd{font-size:12.5px;color:var(--slate);}
+  .quote{border-right:4px solid var(--brass);background:var(--amber-bg);padding:10px 14px;border-radius:8px;margin-top:12px;font-family:'Amiri',serif;font-size:17px;}
+  .lawyer-msg{background:var(--blue-bg);color:var(--blue);padding:10px 14px;border-radius:8px;margin-top:12px;white-space:pre-wrap;}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+  .stat{background:var(--parchment);border-radius:10px;padding:10px;text-align:center;}
+  .stat b{display:block;font-size:17px;}
+  .stat span{font-size:12px;color:var(--slate);}
+  .case h3{font-size:20px;line-height:1.3;}
+  .case .meta{font-size:13px;color:var(--slate);margin-top:4px;}
+  .badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--green-bg);color:var(--green);margin-top:8px;}
+  .badge.done{background:#eee;color:#555;}
+  .next{display:flex;gap:12px;align-items:center;background:var(--amber-bg);border-radius:10px;padding:12px 14px;margin-top:12px;}
+  .next .ic{font-size:26px;}
+  .next b{font-size:16px;}
+  .sec{margin-top:16px;}
+  .sec h4{margin:0 0 8px;font-size:14px;color:var(--ink-light);border-bottom:1px solid var(--border);padding-bottom:4px;}
+  .tl{list-style:none;margin:0;padding:0;position:relative;}
+  .tl li{position:relative;padding:0 18px 12px 0;border-right:2px solid var(--border);margin-right:6px;}
+  .tl li::before{content:'';position:absolute;right:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--brass);border:2px solid var(--card);}
+  .tl .d{font-size:12.5px;color:var(--slate);}
+  .tl .a{font-weight:700;}
+  .tl .x{font-size:13.5px;}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:14px;}
+  .row:last-child{border-bottom:none;}
+  .fees{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .fees div{background:var(--parchment);border-radius:8px;padding:8px;text-align:center;font-size:12.5px;color:var(--slate);}
+  .fees b{display:block;color:var(--ink);font-size:15px;}
+  .doc{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border);}
+  .doc:last-child{border-bottom:none;}
+  .contact{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+  .empty{color:var(--slate);font-size:13.5px;}
+  footer{text-align:center;font-size:11.5px;color:var(--slate);padding:20px 16px 40px;}
+  .hidden{display:none !important;}
+  @media (max-width:520px){ .stats,.fees{grid-template-columns:1fr 1fr 1fr;} .stat b{font-size:15px;} .hd .t{font-size:19px;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="hd">
+    <img id="o-logo" class="hidden" alt="">
+    <div>
+      <div class="t" id="o-name">بوابة الموكلين</div>
+      <div class="s" id="o-spec">مكتب المحاماة</div>
+    </div>
+    <div class="sp"></div>
+    <button id="logout" class="hidden">خروج</button>
+  </div>
+</header>
+
+<main>
+  <section id="login" class="card login">
+    <h2>الاطلاع على ملفاتي</h2>
+    <p>أدخل اسمك وكلمة السر التي أرسلها لك المكتب.</p>
+    <form id="lf" autocomplete="on">
+      <input id="pid" type="text" name="username" autocomplete="username" placeholder="اسم المستخدم (الاسم الكامل)" dir="auto" autocapitalize="none" spellcheck="false">
+      <input id="psec" type="password" name="password" autocomplete="current-password" placeholder="كلمة السر" dir="ltr" autocapitalize="none" autocorrect="off" spellcheck="false">
+      <label class="rm"><input type="checkbox" id="showpass"> إظهار كلمة السر</label>
+      <label class="rm"><input type="checkbox" id="remember"> تذكّرني على هذا الهاتف</label>
+      <button class="btn full" type="submit" id="lbtn">دخول</button>
+    </form>
+    <div class="msg" id="lmsg"></div>
+    <div class="note">🔒 ملفك مشفّر، ولا يُفتح إلا بكلمة سرك داخل هاتفك. لا تشارك كلمة السر مع أحد.</div>
+  </section>
+
+  <section id="view" class="hidden"></section>
+</main>
+<footer id="foot"></footer>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const enc = new TextEncoder();
+  let office = {}, creds = null;
+  // أساس المسارات: يعمل سواء فُتحت البوابة على /espace أو /espace/ أو /espace/index.html
+  const BASE = (()=>{ let p = location.pathname; if(!p.endsWith('/')){ const last = p.split('/').pop(); p = last.includes('.') ? p.slice(0, p.lastIndexOf('/') + 1) : p + '/'; } return p; })();
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function norm(s){
+    return String(s||'').normalize('NFKC').replace(/[\u064B-\u065F\u0670\u0640\u200c-\u200f]/g,'')
+      .replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي')
+      .toLowerCase().replace(/\s+/g,' ').trim();
+  }
+  function hex(buf){ return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+  async function sha(s){ return new Uint8Array(await crypto.subtle.digest('SHA-256', enc.encode(s))); }
+  const MONTHS = ['يناير','فبراير','مارس','أبريل','ماي','يونيو','يوليوز','غشت','شتنبر','أكتوبر','نونبر','دجنبر'];
+  function dt(iso){ if(!iso) return ''; const d = new Date(String(iso).slice(0,10)+'T00:00:00'); return isNaN(d) ? esc(iso) : `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; }
+  function money(n){ return `<span class="ltr">${Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2})}</span> درهم`; }
+
+  async function deriveKey(id, secret){
+    const salt = (await sha('elm-portal-salt|' + id)).slice(0,16);
+    const base = await crypto.subtle.importKey('raw', enc.encode(id + '|' + secret), 'PBKDF2', false, ['deriveBits']);
+    const bits = new Uint8Array(await crypto.subtle.deriveBits({ name:'PBKDF2', salt, iterations:100000, hash:'SHA-256' }, base, 512));
+    return crypto.subtle.importKey('raw', bits.slice(0,32), 'AES-GCM', false, ['decrypt']);
+  }
+  async function decryptBlob(bytes, key){
+    if(bytes.length < 18 || new TextDecoder().decode(bytes.subarray(0,5)) !== 'ELMP1') throw new Error('bad');
+    const iv = bytes.subarray(6, 18), ct = bytes.subarray(18);
+    return new Uint8Array(await crypto.subtle.decrypt({ name:'AES-GCM', iv }, key, ct));
+  }
+  async function fetchBin(path){
+    const r = await fetch(path + '?t=' + Date.now(), { cache:'no-store' });
+    if(r.status === 404) return null;
+    if(!r.ok) throw new Error('net');
+    return new Uint8Array(await r.arrayBuffer());
+  }
+
+  async function loadOffice(){
+    try{
+      const r = await fetch(BASE + 'office.json?t=' + Date.now(), { cache:'no-store' });
+      if(r.ok) office = await r.json();
+    }catch(e){}
+    if(office.name){ $('o-name').textContent = office.name; document.title = 'بوابة الموكلين — ' + office.name; }
+    $('o-spec').textContent = office.specialty || 'بوابة الموكلين';
+    if(office.logo){ $('o-logo').src = office.logo; $('o-logo').classList.remove('hidden'); }
+    $('foot').innerHTML = [office.address, office.phone ? `<span class="ltr">${esc(office.phone)}</span>` : '', office.email].filter(Boolean).map(x=> x.startsWith('<') ? x : esc(x)).join(' · ');
+  }
+
+  async function login(id, secret, remember){
+    $('lmsg').textContent = ''; $('lbtn').disabled = true; $('lbtn').textContent = 'جارٍ الفتح…';
+    try{
+      if(id.length < 3 || secret.length < 6) throw new Error('أدخل اسم المستخدم وكلمة السر كاملين');
+      const name = hex(await sha('elm-portal-file|' + id)).slice(0,32);
+      const bytes = await fetchBin(BASE + 'c/' + name + '.bin');
+      if(!bytes) throw new Error('اسم المستخدم أو كلمة السر غير صحيح');
+      const key = await deriveKey(id, secret);
+      let data;
+      try{ data = JSON.parse(new TextDecoder().decode(await decryptBlob(bytes, key))); }
+      catch(e){ throw new Error('اسم المستخدم أو كلمة السر غير صحيح'); }
+      creds = { id, key };
+      try{ if(remember) localStorage.setItem('portalCreds', JSON.stringify({ v:2, id, secret })); }catch(e){}
+      render(data);
+    }catch(e){
+      $('lmsg').textContent = e.message === 'net' ? 'تعذّر الاتصال — تحقق من الإنترنت' : e.message;
+    }finally{ $('lbtn').disabled = false; $('lbtn').textContent = 'دخول'; }
+  }
+
+  function render(d){
+    $('login').classList.add('hidden'); $('logout').classList.remove('hidden');
+    const v = $('view'); v.classList.remove('hidden');
+    const cases = d.cases || [];
+    const t = d.totals || {};
+    const contact = [];
+    if(office.whatsapp) contact.push(`<a class="btn green sm" href="https://wa.me/${esc(office.whatsapp)}" target="_blank" rel="noopener">💬 مراسلة المكتب على واتساب</a>`);
+    if(office.phone) contact.push(`<a class="btn sm" href="tel:${esc(String(office.phone).replace(/\s/g,''))}">📞 اتصال</a>`);
+    let html = `<div class="card hello">
+      <h2>مرحبًا، ${esc(d.client && d.client.name || '')}</h2>
+      <div class="upd">آخر تحديث للمعلومات: ${office.lastPublish ? new Date(office.lastPublish).toLocaleString('ar-MA') : '—'}</div>
+      ${office.portalQuote ? `<div class="quote">${esc(office.portalQuote)}</div>` : ''}
+      ${d.message ? `<div class="lawyer-msg">✉️ ${esc(d.message)}</div>` : ''}
+      <div class="stats">
+        <div class="stat"><b>${cases.length}</b><span>ملفات</span></div>
+        <div class="stat"><b>${t.fees != null ? money(t.fees) : '—'}</b><span>الأتعاب المتفق عليها</span></div>
+        <div class="stat"><b>${t.paid != null ? money(t.paid) : '—'}</b><span>المدفوع</span></div>
+      </div>
+      ${contact.length ? `<div class="contact">${contact.join('')}</div>` : ''}
+    </div>`;
+    if(!cases.length) html += `<div class="card empty">لا توجد ملفات معروضة حاليًا.</div>`;
+    cases.forEach((c,ci)=>{
+      const closed = /منتهية|مؤرشفة/.test(c.status||'');
+      html += `<div class="card case">
+        <h3>${esc(c.title || 'ملف')}</h3>
+        <div class="meta">${[c.number ? `رقم الملف: <span class="ltr">${esc(c.number)}</span>` : '', c.court ? esc(c.court) : '', c.capacity ? 'بصفتكم: ' + esc(c.capacity) : ''].filter(Boolean).join(' · ')}</div>
+        ${c.opponent ? `<div class="meta">الطرف الآخر: ${esc(c.opponent)}</div>` : ''}
+        ${c.ref ? `<div class="meta">مرجع المكتب: <span class="ltr">${esc(c.ref)}</span></div>` : ''}
+        <span class="badge ${closed?'done':''}">${esc(c.status || 'جارية')}${c.stage ? ' — ' + esc(c.stage) : ''}</span>
+        ${c.next ? `<div class="next"><div class="ic">📅</div><div><div style="font-size:12.5px;color:var(--slate);">الجلسة المقبلة</div><b>${dt(c.next.date)}</b>${c.next.time ? ` — الساعة <span class="ltr">${esc(c.next.time)}</span>` : ''}${c.next.room ? ` — القاعة ${esc(c.next.room)}` : ''}</div></div>` : ''}
+        ${(c.timeline||[]).length ? `<div class="sec"><h4>مراحل الملف</h4><ul class="tl">${c.timeline.map(s=>`<li><div class="d">${dt(s.date)}</div><div class="a">${esc(s.action||'')}</div>${s.decision ? `<div class="x">${esc(s.decision)}</div>` : ''}${s.next ? `<div class="d">← أُجّلت إلى ${dt(s.next)}</div>` : ''}</li>`).join('')}</ul></div>` : ''}
+        ${(c.notices||[]).length ? `<div class="sec"><h4>التبليغ</h4>${c.notices.map(n=>`<div class="row"><span>ملف تبليغ <span class="ltr">${esc(n.number||'')}</span></span><span>${esc(n.status||'')}${n.date ? ' — ' + dt(n.date) : ''}</span></div>`).join('')}</div>` : ''}
+        ${(c.executions||[]).length ? `<div class="sec"><h4>التنفيذ</h4>${c.executions.map(n=>`<div class="row"><span>ملف تنفيذ <span class="ltr">${esc(n.number||'')}</span></span><span>${esc(n.status||'')}${n.date ? ' — ' + dt(n.date) : ''}</span></div>`).join('')}</div>` : ''}
+        ${c.fees ? `<div class="sec"><h4>الأتعاب</h4><div class="fees"><div>المتفق عليها<b>${money(c.fees.agreed)}</b></div><div>المدفوع<b>${money(c.fees.paid)}</b></div><div>الباقي<b>${money(c.fees.remaining)}</b></div></div>${c.fees.note ? `<div class="meta">${esc(c.fees.note)}</div>` : ''}</div>` : ''}
+        ${(c.docs||[]).length ? `<div class="sec"><h4>الوثائق</h4>${c.docs.map((x,di)=>`<div class="doc"><span>${x.type==='application/pdf'?'📄':'🖼️'} ${esc(x.name)}<br><span class="meta">${dt(x.date)}</span></span><button class="btn brass sm" data-doc="${ci}:${di}">فتح</button></div>`).join('')}</div>` : ''}
+      </div>`;
+    });
+    if((d.payments||[]).length){
+      html += `<div class="card"><div class="sec" style="margin-top:0;"><h4>دفعاتكم المسجّلة</h4>${d.payments.map(p=>`<div class="row"><span>${dt(p.date)}${p.note ? ' — ' + esc(p.note) : ''}</span><b>${money(p.amount)}</b></div>`).join('')}</div></div>`;
+    }
+    html += `<div class="note" style="text-align:center;">هذه المعلومات للاطلاع فقط ويُحيّنها المكتب دوريًا. لأي استفسار تواصلوا مع المكتب.</div>`;
+    v.innerHTML = html;
+    v.querySelectorAll('[data-doc]').forEach(b=> b.addEventListener('click', ()=>{
+      const [ci, di] = b.dataset.doc.split(':').map(Number);
+      openDoc(cases[ci].docs[di], b);
+    }));
+    window.scrollTo(0,0);
+  }
+
+  async function openDoc(doc, btn){
+    const old = btn.textContent; btn.disabled = true; btn.textContent = '…';
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const win = isAndroid ? null : window.open('', '_blank');
+    try{
+      const bytes = await fetchBin(BASE + 'd/' + doc.file + '.bin');
+      if(!bytes) throw new Error('الوثيقة غير متوفرة حاليًا');
+      const plain = await decryptBlob(bytes, creds.key);
+      const url = URL.createObjectURL(new Blob([plain], { type: doc.type || 'application/octet-stream' }));
+      if(win) win.location = url;
+      else{ const a = document.createElement('a'); a.href = url; a.download = doc.name; document.body.appendChild(a); a.click(); a.remove(); }
+      setTimeout(()=>URL.revokeObjectURL(url), 120000);
+    }catch(e){ if(win) win.close(); alert(e.message || 'تعذّر فتح الوثيقة'); }
+    finally{ btn.disabled = false; btn.textContent = old; }
+  }
+
+  $('lf').addEventListener('submit', e=>{ e.preventDefault(); login(norm($('pid').value), $('psec').value.trim(), $('remember').checked); });
+  $('showpass').addEventListener('change', ()=>{ $('psec').type = $('showpass').checked ? 'text' : 'password'; });
+  $('logout').addEventListener('click', ()=>{
+    try{ localStorage.removeItem('portalCreds'); }catch(e){}
+    creds = null; $('view').innerHTML = ''; $('view').classList.add('hidden');
+    $('login').classList.remove('hidden'); $('logout').classList.add('hidden');
+    $('psec').value = '';
+  });
+
+  // إزالة أي Service Worker قديم على هذا الرابط (مثلًا إن رُفع التطبيق هنا بالخطأ سابقًا)
+  try{
+    // فقط ما يخصّ مسار البوابة نفسه — لا نلمس تطبيقًا أو موقعًا آخر على نفس النطاق
+    if('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(rs=> rs.forEach(r=>{
+      if(r.scope === location.origin + BASE) r.unregister();
+    }));
+  }catch(e){}
+  (async function init(){
+    await loadOffice();
+    let saved = null; try{ saved = JSON.parse(localStorage.getItem('portalCreds') || 'null'); }catch(e){}
+    if(saved && saved.id && saved.secret && saved.v === 2){ $('pid').value = saved.id; $('remember').checked = true; login(saved.id, saved.secret, true); }
+  })();
+})();
+</script>
+</body>
+</html>
