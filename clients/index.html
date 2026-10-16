@@ -292,6 +292,15 @@
     .ptbl td::before{content:attr(data-l);flex:0 0 40%;font-weight:700;color:#0f2f57;font-size:12px;}
     .tbl-wrap{border:0;}
   }
+
+  /* v76: أزرار التواصل في الأعلى — البطاقة بكامل العرض */
+  .cbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow);padding:10px 14px;margin:0 0 18px;}
+  .cbar-t{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--ink);font-size:15px;}
+  .cbar-b{display:flex;flex-wrap:wrap;gap:8px;}
+  .cbar-b .btn{padding:9px 16px;font-size:14px;}
+  .main-full{min-width:0;}
+  .pay-full{margin-top:6px;}
+  @media (max-width:600px){ .cbar{padding:10px;} .cbar-b{width:100%;} .cbar-b .btn{flex:1 1 calc(50% - 8px);padding:9px 8px;font-size:13px;} .cbar-b #print-sum{flex-basis:100%;} }
 </style>
 </head>
 <body>
@@ -449,7 +458,6 @@
     closed:'انتهى الملف: لم تعد فيه إجراءات جارية، ويحتفظ المكتب بنسخة منه.',
     pending:'الملف رائج أمام المحكمة، وسيُحدَّد تاريخ جلسته المقبلة قريبًا.'
   };
-  const TERMS = [['الجلسة','موعد عرض الملف على المحكمة.'],['التأجيل','نقل الملف إلى جلسة لاحقة لإتمام إجراء.'],['المداولة','دراسة المحكمة للملف قبل إصدار الحكم.'],['الحكم التمهيدي','قرار قبل الفصل، كالأمر بخبرة.'],['التبليغ','إيصال الحكم رسميًا إلى الأطراف، ومنه يبدأ أجل الطعن.'],['الاستئناف','طعن في الحكم أمام محكمة الاستئناف.'],['النقض','طعن في القرار أمام محكمة النقض بالرباط.'],['الحكم الغيابي','حكم صدر دون حضور أو جواب أحد الأطراف.'],['التنفيذ','إلزام المحكوم عليه بما قضى به الحكم.']];
   function caseSig(c){ return c.ph ? [c.ph.k, c.ph.head, JSON.stringify(c.ph.big||[])].join('|') : (c.status||''); }
   function seenKey(){ return 'portalSeen-' + (creds && creds.id ? creds.id : ''); }
   function waOffice(text){ return office.whatsapp ? 'https://wa.me/' + office.whatsapp + '?text=' + encodeURIComponent(text) : ''; }
@@ -469,14 +477,18 @@
     const cases = d.cases || [];
     const t = d.totals || {};
     const contact = [];
-    if(office.whatsapp) contact.push(`<a class="btn green full" href="https://wa.me/${esc(office.whatsapp)}" target="_blank" rel="noopener">${ic('chat')} مراسلة المكتب على واتساب</a>`);
-    if(office.phone) contact.push(`<a class="btn line full" href="tel:${esc(String(office.phone).replace(/\s/g,''))}">${ic('phone')} اتصال بالمكتب</a>`);
+    if(office.whatsapp) contact.push(`<a class="btn green" href="https://wa.me/${esc(office.whatsapp)}" target="_blank" rel="noopener">${ic('chat')} مراسلة المكتب على واتساب</a>`);
+    if(office.phone) contact.push(`<a class="btn line" href="tel:${esc(String(office.phone).replace(/\s/g,''))}">${ic('phone')} اتصال بالمكتب</a>`);
     const active = cases.filter(c=> !/منتهية|مؤرشفة/.test(c.status||'')).length;
 
     let html = `<div class="welcome">
       <h2>مرحبًا، ${esc(d.client && d.client.name || '')}</h2>
       <div class="upd">${ic('clock')} آخر تحديث للمعلومات: ${office.lastPublish ? new Date(office.lastPublish).toLocaleString('ar-MA') : '—'}</div>
       ${office.portalQuote ? `<div class="quote">${esc(office.portalQuote)}</div>` : ''}
+    </div>
+    <div class="cbar">
+      <span class="cbar-t">${ic('phone')} التواصل مع المكتب</span>
+      <div class="cbar-b">${contact.join('')}<button class="btn brass" id="print-sum">${ic('down')} ملخص ملفاتي (PDF)</button></div>
     </div>
     <div class="stats">
       <div class="stat"><div class="ic">${ic('folder')}</div><div><b>${cases.length}</b><span>${active && active !== cases.length ? `ملفات (${active} جارية)` : 'ملفات'}</span></div></div>
@@ -497,7 +509,7 @@
         if(!todos.length) return '';
         const icn = { presence:'🧑‍⚖️', expert:'🔬', decide:'⚖️', request:'📌', fees:'💳' };
         return `<div class="todo-panel"><h3>✅ المطلوب منكم</h3>${todos.map(t=>`<div class="todo k-${t.kind}"><span class="ti">${icn[t.kind]||'📌'}</span><div><b>${esc(t.text)}</b><small>${t.num ? (/ملفات/.test(t.num) ? esc(t.num) : 'الملف ' + `<span class="ltr">${esc(t.num)}</span>`) : ''}${t.due ? ' · قبل ' + dt(t.due) : ''}</small></div></div>`).join('')}</div>`; })()}
-    <div class="layout"><div class="main-col">
+    <div class="main-full">
       ${d.message ? `<div class="panel" style="margin-bottom:18px;"><h3>${ic('mail')} رسالة من المكتب</h3><div class="pb"><div class="lawyer-msg">${esc(d.message)}</div></div></div>` : ''}
       <h3 class="sec-title">ملفاتي${cases.length > 1 ? ` <small class="sec-n">${cases.length} ملفات — اختر ملفًا لعرضه</small>` : ''}</h3>`;
     if(!cases.length) html += `<div class="case empty">لا توجد ملفات معروضة حاليًا.</div>`;
@@ -601,14 +613,10 @@
           <span class="fsw-n ltr">${esc(c.number || '—')}</span><b>${esc(c.title || 'ملف')}</b><small>${esc((c.card && c.card.court) || c.court || '')}</small><em>${esc(c.ph ? c.ph.label : (c.status||''))}</em></button>`).join('')}</div>`;
       html += caseCards.map(x=> x.html.replace('data-case="' + x.ci + '"', 'data-case="' + x.ci + '"' + (x.ci===sel ? '' : ' hidden'))).join('');
     }
-    html += `</div><aside class="side">`;
-    if(contact.length) html += `<div class="panel"><h3>${ic('phone')} التواصل مع المكتب</h3><div class="pb contact">${contact.join('')}</div></div>`;
     if((d.payments||[]).length){
-      html += `<div class="panel"><h3>${ic('money')} دفعاتكم المسجّلة</h3><div class="pb">${d.payments.map(p=>`<div class="row"><span>${dt(p.date)}${p.note ? '<br><span class="meta">' + esc(p.note) + '</span>' : ''}</span><b>${money(p.amount)}</b></div>`).join('')}</div></div>`;
+      html += `<div class="panel pay-full"><h3>${ic('money')} دفعاتكم المسجّلة</h3><div class="pb">${d.payments.map(p=>`<div class="row"><span>${dt(p.date)}${p.note ? ' — <span class="meta">' + esc(p.note) + '</span>' : ''}</span><b>${money(p.amount)}</b></div>`).join('')}</div></div>`;
     }
-    html += `<div class="panel"><h3>${ic('doc')} ملخص ملفاتي</h3><div class="pb"><p class="meta" style="margin:0 0 10px;">ورقة تجمع ملفاتكم ومراحلها ودفعاتكم، تحفظونها PDF أو تطبعونها.</p><button class="btn brass full" id="print-sum">${ic('down')} تحميل الملخص (PDF)</button></div></div>`;
-    html += `<div class="panel"><h3>${ic('steps')} قاموس المصطلحات</h3><div class="pb gl-list">${TERMS.map(([k,v])=>`<div><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join('')}</div></div>`;
-    html += `<p class="disclaimer">هذه المعلومات للاطلاع فقط ويُحيّنها المكتب دوريًا. لأي استفسار تواصلوا مع المكتب.</p></aside></div>`;
+    html += `<p class="disclaimer">هذه المعلومات للاطلاع فقط ويُحيّنها المكتب دوريًا. لأي استفسار تواصلوا مع المكتب.</p></div>`;
     v.innerHTML = html;
     if(window.matchMedia('(max-width:760px)').matches) v.querySelectorAll('details.sec').forEach((el,i)=>{ if(!/الوثائق|الأتعاب/.test(el.querySelector('summary').textContent) && el.querySelectorAll('li,.row').length > 3) el.open = false; });
     v.querySelectorAll('[data-fsw]').forEach(b=> b.addEventListener('click', ()=>{
