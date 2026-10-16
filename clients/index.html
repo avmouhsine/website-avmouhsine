@@ -563,7 +563,7 @@
         return `<div class="doc"><div class="fi ${pdf?'':'img'}">${ic(pdf?'doc':'img')}</div><div class="nm">${esc(x.name)}<small>${dt(x.date)}</small></div><button class="btn brass sm" data-doc="${ci}:${di}">${ic('down')} فتح</button></div>`;
       }).join('')));
       const K = c.card;
-      const kv = K ? [['المحكمة', esc(K.court||'—')], ['رقم الملف بالمحكمة', `<span class="ltr">${esc(K.number||'—')}</span>`],
+      const kv = K && K.kv ? K.kv.map(([k,v])=> [esc(k), esc(v)]) : K ? [['المحكمة', esc(K.court||'—')], ['رقم الملف بالمحكمة', `<span class="ltr">${esc(K.number||'—')}</span>`],
         ['نوع الملف', esc(K.kind||'—')], ['الرقم الوطني للملف', K.platformNo ? `<span class="ltr">${esc(K.platformNo)}</span>` : '—'],
         ['المرحلة', esc(K.stageName||'—')], ['القاضي / المستشار المقرر', esc(K.judge||'—')],
         ['الموضوع', esc(K.subject||'—')], ['تاريخ التسجيل', K.regDate ? dt(K.regDate) : '—'],
