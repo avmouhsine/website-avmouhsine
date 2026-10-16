@@ -97,7 +97,7 @@
   .stat b{display:block;font-size:19px;font-family:var(--kufi);color:var(--ink);line-height:1.3;}
   .stat span{font-size:12.5px;color:var(--slate);}
   .layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start;}
-  .side{display:grid;gap:16px;position:sticky;top:100px;}
+  .side{display:grid;gap:16px;}
   .panel{background:#fff;border:1px solid var(--border);border-radius:6px;box-shadow:var(--shadow);}
   .panel > h3{font-size:15px;padding:13px 18px;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:center;}
   .panel > h3 svg{color:var(--brass);}
@@ -123,6 +123,8 @@
   .next .cal i{display:block;font-style:normal;background:var(--brass);color:#fff;font-size:11px;font-weight:700;padding:2px 4px;}
   .next .cal b{display:block;font-family:var(--kufi);font-size:20px;color:var(--ink);padding:2px 0 3px;}
   .next small{font-size:12px;color:var(--slate);font-weight:600;}
+  .next.delib{background:#fff8d9;border-right-color:#e0b100;}
+  .next.delib .cal i{background:#c99a00;}
   .next .when{font-weight:700;font-size:15px;color:var(--ink);}
   .case-bd{padding:6px 20px 18px;}
   details.sec{border-top:1px solid var(--border);margin-top:14px;padding-top:2px;}
@@ -195,6 +197,52 @@
     .case-bd{padding:4px 14px 14px;}
     .fees{gap:6px;} .fees b{font-size:13.5px;}
   }
+
+  /* v73: أين وصل ملفي */
+  .pst{margin:16px 20px 0;}
+  .pst-steps{display:flex;margin:0 0 12px;}
+  .pst-steps div{flex:1;text-align:center;position:relative;font-size:11px;color:#9aa6b4;}
+  .pst-steps div::before{content:'';position:absolute;top:13px;left:50%;width:100%;height:2px;background:#d5dce4;}
+  .pst-steps div:first-child::before{display:none;}
+  .pst-steps i{position:relative;z-index:1;display:inline-flex;width:26px;height:26px;border-radius:50%;background:#e9edf2;color:#7a8794;font-style:normal;font-weight:700;align-items:center;justify-content:center;font-size:12px;border:2px solid #fff;}
+  .pst-steps span{display:block;margin-top:4px;line-height:1.3;padding:0 2px;}
+  .pst-steps div.dn i{background:#2f6a52;color:#fff;} .pst-steps div.dn::before,.pst-steps div.cur::before{background:#2f6a52;} .pst-steps div.dn span{color:#2f6a52;}
+  .pst-steps div.cur i{background:var(--brass);color:#fff;box-shadow:0 0 0 3px rgba(176,138,62,.25);} .pst-steps div.cur span{color:var(--ink);font-weight:800;}
+  .pst-card{border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff;}
+  .pst-h{padding:12px 16px;background:var(--ink);color:#fff;} .pst-h p{margin:6px 0 0;font-size:14.5px;line-height:1.7;}
+  .pst-tag{display:inline-block;background:var(--brass);color:#fff;border-radius:999px;padding:2px 12px;font-size:12px;font-weight:700;}
+  .pst-big{display:flex;flex-wrap:wrap;gap:0;background:var(--brass-bg);border-bottom:1px solid var(--border);}
+  .pst-big div{flex:1 1 140px;text-align:center;padding:12px 8px;} .pst-big small{display:block;font-size:11.5px;color:var(--slate);} .pst-big b{display:block;font-size:18px;color:var(--ink);margin-top:2px;}
+  .pst-facts div{display:flex;gap:10px;padding:8px 16px;border-bottom:1px solid var(--border);font-size:13.5px;} .pst-facts small{flex:0 0 38%;color:var(--slate);font-weight:700;font-size:12.5px;}
+  .pst-pres{margin:12px 16px 0;padding:10px 12px;border-radius:6px;font-size:13.5px;font-weight:700;}
+  .pst-pres.yes{background:#fdecea;color:#9b3b2c;border:1px solid #e9b4ab;} .pst-pres.no{background:#eef6f1;color:#2f6a52;border:1px solid #b9dcc6;}
+  .pst-nx{margin:12px 16px 14px;padding:10px 12px;background:#eef3fa;border-radius:6px;font-size:13.5px;}
+  .pst-card.k-verdict .pst-h{background:#2f4f86;} .pst-card.k-delib .pst-h{background:#8a5a12;} .pst-card.k-closed .pst-h{background:#5b6b7b;}
+  @media (max-width:600px){ .pst{margin:12px 12px 0;} .pst-steps span{font-size:9.5px;} .pst-big b{font-size:16px;} }
+
+  /* v74 */
+  .upd-banner{background:#eef6f1;border:1px solid #b9dcc6;color:#2f6a52;border-radius:6px;padding:10px 14px;margin:0 0 16px;font-weight:700;font-size:14px;}
+  .todo-panel{background:#fff;border:2px solid var(--brass);border-radius:8px;padding:12px 16px;margin:0 0 18px;}
+  .todo-panel h3{margin:0 0 8px;font-size:16px;color:var(--ink);}
+  .todo{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--border);} .todo:first-of-type{border-top:0;}
+  .todo .ti{font-size:20px;line-height:1.2;} .todo b{display:block;font-size:14px;} .todo small{color:var(--slate);font-size:12px;}
+  .todo.k-presence b{color:#9b3b2c;} .todo.k-decide b{color:#2f4f86;}
+  .badge.new{background:#e9f7ef;color:#2f6a52;margin-inline-end:6px;} .case.is-new{box-shadow:0 0 0 2px #9fd4b4;}
+  .pst-gl{margin:0 16px 12px;font-size:13px;} .pst-gl summary{cursor:pointer;color:#2f4f86;font-weight:700;} .pst-gl p{margin:6px 0 0;line-height:1.8;color:#4a5a6b;}
+  .case-acts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 20px 0;}
+  .btn.sm{padding:7px 12px;font-size:13px;} .case-acts .btn{flex:0 1 auto;}
+  .gl-list div{padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;} .gl-list div:last-child{border:0;} .gl-list b{display:block;color:var(--ink);} .gl-list span{color:var(--slate);}
+  #print-sheet{display:none;}
+  @media print{
+    body.printing > *:not(#print-sheet){display:none!important;}
+    body.printing #print-sheet{display:block;padding:10mm;color:#000;font-size:12pt;direction:rtl;}
+    #print-sheet .ps-h{display:flex;gap:12px;align-items:center;border-bottom:2px solid #000;padding-bottom:8px;} #print-sheet .ps-h img{height:60px;} #print-sheet .ps-h b{display:block;font-size:15pt;} #print-sheet .ps-h span{font-size:10pt;}
+    #print-sheet h1{font-size:16pt;text-align:center;margin:14px 0 2px;} #print-sheet .ps-d{text-align:center;margin:0 0 12px;}
+    #print-sheet .ps-c{margin:10px 0;break-inside:avoid;} #print-sheet h2{font-size:13pt;margin:0 0 4px;}
+    #print-sheet table{width:100%;border-collapse:collapse;} #print-sheet td{border:1px solid #999;padding:4px 6px;vertical-align:top;} #print-sheet td:first-child{width:30%;font-weight:700;background:#f2f2f2;}
+    #print-sheet .ps-f{font-size:9pt;color:#555;margin-top:14px;text-align:center;}
+  }
+  @media (max-width:600px){ .case-acts{margin:12px 12px 0;} .case-acts .btn{flex:1 1 100%;} }
 </style>
 </head>
 <body>
@@ -339,6 +387,32 @@
   const ic = (k, extra) => `<svg class="i" viewBox="0 0 24 24"${extra||''}>${IC[k]||''}</svg>`;
   const SHORT = ['يناير','فبراير','مارس','أبريل','ماي','يونيو','يوليوز','غشت','شتنبر','أكتوبر','نونبر','دجنبر'];
 
+  // ===== v74 =====
+  const GLOSS = {
+    filed:'سُجّلت الدعوى بكتابة ضبط المحكمة، وتنتظر تعيينها بأول جلسة يحددها القاضي.',
+    hearing:'الجلسة: يوم يُعرض فيه الملف على المحكمة. كثيرًا ما «يُؤجَّل» الملف إلى جلسة أخرى لإتمام إجراء (جواب، استدعاء…)، وهذا أمر عادي.',
+    prelim:'الحكم التمهيدي: قرار تتخذه المحكمة قبل الفصل في النزاع، مثل الأمر بخبرة يُنجزها خبير، ثم يعود الملف للجلسات بعد إيداع تقريره.',
+    delib:'المداولة: أنهت المحكمة المناقشة وتدرس الملف لإصدار حكمها في التاريخ المحدد. لا تُقبل خلالها مذكرات أو وثائق جديدة.',
+    verdict:'صدور الحكم: بعد صدوره يُبلَّغ للأطراف، ويبدأ من تاريخ التبليغ أجل الطعن (استئناف أو نقض). إن لم يُطعن فيه داخل الأجل يصير نهائيًا قابلًا للتنفيذ.',
+    appeal:'الطعن: يُعرض الملف من جديد على محكمة أعلى (الاستئناف أو النقض) لمراجعة الحكم.',
+    exec:'التنفيذ: إلزام الطرف المحكوم عليه بما قضى به الحكم، عن طريق مفوض قضائي أو كتابة الضبط، ثم تحويل المبالغ المحصلة إلى حسابكم عبر حساب الهيئة.',
+    closed:'انتهى الملف: لم تعد فيه إجراءات جارية، ويحتفظ المكتب بنسخة منه.',
+    pending:'الملف رائج أمام المحكمة، وسيُحدَّد تاريخ جلسته المقبلة قريبًا.'
+  };
+  const TERMS = [['الجلسة','موعد عرض الملف على المحكمة.'],['التأجيل','نقل الملف إلى جلسة لاحقة لإتمام إجراء.'],['المداولة','دراسة المحكمة للملف قبل إصدار الحكم.'],['الحكم التمهيدي','قرار قبل الفصل، كالأمر بخبرة.'],['التبليغ','إيصال الحكم رسميًا إلى الأطراف، ومنه يبدأ أجل الطعن.'],['الاستئناف','طعن في الحكم أمام محكمة الاستئناف.'],['النقض','طعن في القرار أمام محكمة النقض بالرباط.'],['الحكم الغيابي','حكم صدر دون حضور أو جواب أحد الأطراف.'],['التنفيذ','إلزام المحكوم عليه بما قضى به الحكم.']];
+  function caseSig(c){ return c.ph ? [c.ph.k, c.ph.head, JSON.stringify(c.ph.big||[])].join('|') : (c.status||''); }
+  function seenKey(){ return 'portalSeen-' + (creds && creds.id ? creds.id : ''); }
+  function waOffice(text){ return office.whatsapp ? 'https://wa.me/' + office.whatsapp + '?text=' + encodeURIComponent(text) : ''; }
+  function icsFor(c){
+    if(!c.ph || !['hearing','delib'].includes(c.ph.k)) return null;
+    const dd = (c.next && c.next.date) || (c.delib && c.delib.date); if(!dd) return null;
+    const ymd = String(dd).slice(0,10).replace(/-/g,'');
+    const tm = (c.next && c.next.time) || '';
+    const dtStart = tm ? `DTSTART:${ymd}T${tm.replace(':','')}00` : `DTSTART;VALUE=DATE:${ymd}`;
+    const title = (c.ph.k==='delib' ? 'النطق بالحكم — ' : 'جلسة — ') + (c.number ? 'ملف ' + c.number : (c.title||''));
+    return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//elm-portal//AR','BEGIN:VEVENT','UID:' + ymd + '-' + (c.number||'f').replace(/\W/g,'') + '@portal', dtStart, 'SUMMARY:' + title, 'LOCATION:' + (c.court||''), 'DESCRIPTION:' + (c.ph.head||''),
+      'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:' + title,'END:VALARM','BEGIN:VALARM','TRIGGER:-PT2H','ACTION:DISPLAY','DESCRIPTION:' + title,'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  }
   function render(d){
     $('login').classList.add('hidden'); $('logout').classList.remove('hidden');
     const v = $('view'); v.classList.remove('hidden');
@@ -359,6 +433,20 @@
       <div class="stat"><div class="ic">${ic('scale')}</div><div><b>${t.fees != null ? money(t.fees) : '—'}</b><span>الأتعاب المتفق عليها</span></div></div>
       <div class="stat"><div class="ic">${ic('check')}</div><div><b>${t.paid != null ? money(t.paid) : '—'}</b><span>المدفوع</span></div></div>
     </div>
+    ${(()=>{ let seen = {}; try{ seen = JSON.parse(localStorage.getItem(seenKey()) || '{}'); }catch(e){}
+        const first = !Object.keys(seen).length;
+        cases.forEach(c=>{ c._new = !first && seen[c.number || c.title] !== caseSig(c); });
+        const n = cases.filter(c=> c._new).length;
+        const next = {}; cases.forEach(c=> next[c.number || c.title] = caseSig(c));
+        try{ localStorage.setItem(seenKey(), JSON.stringify(next)); }catch(e){}
+        return n ? `<div class="upd-banner">🆕 تم تحديث ${n === 1 ? 'ملف واحد' : n + ' ملفات'} منذ زيارتكم الأخيرة — تجدونه مميَّزًا بعلامة «جديد».</div>` : ''; })()}
+    ${(()=>{ let todos = cases.flatMap(c=> (c.todo||[]).map(t=> ({ ...t, num: c.number })));
+        const fees = todos.filter(t=> t.kind==='fees');
+        if(fees.length > 1){ const sum = fees.reduce((s,t)=> s + Number(t.amount||0), 0); todos = todos.filter(t=> t.kind!=='fees'); todos.push({ kind:'fees', text: sum ? 'أداء باقي الأتعاب: ' + Number(sum).toLocaleString('en-US') + ' درهم' : fees[0].text, num: fees.length + ' ملفات', due:'' }); }
+        todos.sort((a,b)=> (a.due||'9999').localeCompare(b.due||'9999'));
+        if(!todos.length) return '';
+        const icn = { presence:'🧑‍⚖️', expert:'🔬', decide:'⚖️', request:'📌', fees:'💳' };
+        return `<div class="todo-panel"><h3>✅ المطلوب منكم</h3>${todos.map(t=>`<div class="todo k-${t.kind}"><span class="ti">${icn[t.kind]||'📌'}</span><div><b>${esc(t.text)}</b><small>${t.num ? (/ملفات/.test(t.num) ? esc(t.num) : 'الملف ' + `<span class="ltr">${esc(t.num)}</span>`) : ''}${t.due ? ' · قبل ' + dt(t.due) : ''}</small></div></div>`).join('')}</div>`; })()}
     <div class="layout"><div class="main-col">
       ${d.message ? `<div class="panel" style="margin-bottom:18px;"><h3>${ic('mail')} رسالة من المكتب</h3><div class="pb"><div class="lawyer-msg">${esc(d.message)}</div></div></div>` : ''}
       <h3 class="sec-title">ملفاتي</h3>`;
@@ -377,12 +465,30 @@
         const ok = !isNaN(nd);
         nx = `<div class="next">
           <div class="cal"><i>${ok ? SHORT[nd.getMonth()] : '—'}</i><b>${ok ? nd.getDate() : '?'}</b></div>
-          <div><small>الجلسة المقبلة</small><div class="when">${dt(c.next.date)}${c.next.time ? ` — الساعة <span class="ltr">${esc(c.next.time)}</span>` : ''}</div>${c.next.room ? `<div class="meta">القاعة ${esc(c.next.room)}</div>` : ''}</div>
+          <div><small>${c.delib && c.delib.date === c.next.date ? 'الملف في المداولة — النطق بالحكم' : 'الجلسة المقبلة'}</small><div class="when">${dt(c.next.date)}${c.next.time ? ` — الساعة <span class="ltr">${esc(c.next.time)}</span>` : ''}</div>${c.next.room ? `<div class="meta">القاعة ${esc(c.next.room)}</div>` : ''}</div>
+        </div>`;
+      }
+      if(c.delib) nx = nx.replace('<div class="next">', '<div class="next delib">') + `<div class="meta" style="margin:6px 20px 0;color:#6e5100;">🟡 الملف محجوز للمداولة: أُقفل باب المناقشة، فلا تُقبل مذكرات أو وثائق جديدة إلى حين النطق بالحكم.</div>`;
+      // v73: «أين وصل ملفي» — المرحلة الحالية ومعطياتها الأساسية
+      let pst = '';
+      if(c.ph){
+        const P = c.ph;
+        nx = '';
+        pst = `<div class="pst">
+          <div class="pst-steps">${(P.steps||[]).map((t,i)=>`<div class="${i < P.step ? 'dn' : i===P.step ? 'cur' : ''}"><i>${i < P.step ? '✓' : i+1}</i><span>${esc(t)}</span></div>`).join('')}</div>
+          <div class="pst-card k-${esc(P.k)}">
+            <div class="pst-h"><span class="pst-tag">${esc(P.label)}</span><p>${esc(P.head)}</p></div>
+            ${(P.big||[]).length ? `<div class="pst-big">${P.big.map(([k,v])=>`<div><small>${esc(k)}</small><b>${esc(v)}</b></div>`).join('')}</div>` : ''}
+            ${(P.facts||[]).length ? `<div class="pst-facts">${P.facts.map(([k,v])=>`<div><small>${esc(k)}</small><span>${esc(v)}</span></div>`).join('')}</div>` : ''}
+            ${P.k==='hearing' ? `<div class="pst-pres ${P.presence ? 'yes' : 'no'}">${P.presence ? '⚠️ حضوركم الشخصي مطلوب في هذه الجلسة — المرجو الحضور قبل الموعد بنصف ساعة مع بطاقة التعريف الوطنية.' : '✓ لا يلزمكم الحضور في هذه الجلسة، والمكتب ينوب عنكم.'}</div>` : ''}
+            ${P.next ? `<div class="pst-nx"><b>الخطوة المقبلة:</b> ${esc(P.next)}</div>` : ''}
+            ${GLOSS[P.k] ? `<details class="pst-gl"><summary>ⓘ ما معنى ذلك؟</summary><p>${esc(GLOSS[P.k])}</p></details>` : ''}
+          </div>
         </div>`;
       }
       const secs = [];
-      const sec = (icon, title, count, body) => `<details class="sec" open><summary>${ic(icon)} ${title}${count ? ` <span class="cnt">${count}</span>` : ''}</summary>${body}</details>`;
-      if((c.timeline||[]).length) secs.push(sec('steps','مراحل الملف', c.timeline.length, `<ul class="tl">${c.timeline.map(s=>`<li><div class="d">${dt(s.date)}</div><div class="a">${esc(s.action||'')}</div>${s.decision ? `<div class="x">${esc(s.decision)}</div>` : ''}${s.next ? `<div class="n">← أُجّلت إلى ${dt(s.next)}</div>` : ''}</li>`).join('')}</ul>`));
+      const sec = (icon, title, count, body, closedByDefault) => `<details class="sec"${closedByDefault ? '' : ' open'}><summary>${ic(icon)} ${title}${count ? ` <span class="cnt">${count}</span>` : ''}</summary>${body}</details>`;
+      if((c.timeline||[]).length) secs.push(sec('steps', c.ph ? 'سجل الإجراءات بالتفصيل' : 'مراحل الملف', c.timeline.length, `<ul class="tl">${c.timeline.map(s=>`<li><div class="d">${dt(s.date)}</div><div class="a">${esc(s.action||'')}</div>${s.decision ? `<div class="x">${esc(s.decision)}</div>` : ''}${s.next ? `<div class="n">← أُجّلت إلى ${dt(s.next)}</div>` : ''}</li>`).join('')}</ul>`, !!c.ph));
       if((c.notices||[]).length) secs.push(sec('bell','التبليغ', c.notices.length, c.notices.map(n=>`<div class="row"><span>ملف تبليغ <span class="ltr">${esc(n.number||'')}</span></span><span>${esc(n.status||'')}${n.date ? ' — ' + dt(n.date) : ''}</span></div>`).join('')));
       if((c.executions||[]).length) secs.push(sec('gavel','التنفيذ', c.executions.length, c.executions.map(n=>`<div class="row"><span>ملف تنفيذ <span class="ltr">${esc(n.number||'')}</span></span><span>${esc(n.status||'')}${n.date ? ' — ' + dt(n.date) : ''}</span></div>`).join('')));
       if(c.fees){
@@ -393,14 +499,19 @@
         const pdf = x.type === 'application/pdf';
         return `<div class="doc"><div class="fi ${pdf?'':'img'}">${ic(pdf?'doc':'img')}</div><div class="nm">${esc(x.name)}<small>${dt(x.date)}</small></div><button class="btn brass sm" data-doc="${ci}:${di}">${ic('down')} فتح</button></div>`;
       }).join('')));
-      html += `<article class="case">
+      html += `<article class="case${c._new ? ' is-new' : ''}">
         <div class="case-hd">
           <div class="ic">${ic('scale')}</div>
           <div class="tt"><h3>${esc(c.title || 'ملف')}</h3>${c.stage ? `<div class="meta">${esc(c.stage)}</div>` : ''}</div>
-          <span class="badge ${closed?'done':''}">${esc(c.status || 'جارية')}</span>
+          ${c._new ? '<span class="badge new">🆕 جديد</span>' : ''}<span class="badge ${closed || (c.ph && c.ph.k==='closed') ? 'done' : ''}">${esc(c.ph ? c.ph.label : (c.status || 'جارية'))}</span>
         </div>
         ${meta.length ? `<div class="meta-grid">${meta.map(m=>`<div><small>${m[0]}</small>${m[1]}</div>`).join('')}</div>` : ''}
-        ${nx}
+        ${pst}${nx}
+        <div class="case-acts">
+          ${office.whatsapp ? `<a class="btn line sm" target="_blank" rel="noopener" href="${esc(waOffice('سؤال بخصوص الملف عدد ' + (c.number || c.title || '') + ':\n'))}">${ic('chat')} سؤال عن هذا الملف</a>` : ''}
+          <button class="btn line sm" data-send-doc="${ci}">${ic('doc')} إرسال وثيقة للمكتب</button>
+          ${icsFor(c) ? `<button class="btn line sm" data-ics="${ci}">${ic('cal')} أضف الموعد إلى تقويم هاتفي</button>` : ''}
+        </div>
         ${secs.length ? `<div class="case-bd">${secs.join('')}</div>` : '<div style="height:16px"></div>'}
       </article>`;
     });
@@ -409,9 +520,19 @@
     if((d.payments||[]).length){
       html += `<div class="panel"><h3>${ic('money')} دفعاتكم المسجّلة</h3><div class="pb">${d.payments.map(p=>`<div class="row"><span>${dt(p.date)}${p.note ? '<br><span class="meta">' + esc(p.note) + '</span>' : ''}</span><b>${money(p.amount)}</b></div>`).join('')}</div></div>`;
     }
+    html += `<div class="panel"><h3>${ic('doc')} ملخص ملفاتي</h3><div class="pb"><p class="meta" style="margin:0 0 10px;">ورقة تجمع ملفاتكم ومراحلها ودفعاتكم، تحفظونها PDF أو تطبعونها.</p><button class="btn brass full" id="print-sum">${ic('down')} تحميل الملخص (PDF)</button></div></div>`;
+    html += `<div class="panel"><h3>${ic('steps')} قاموس المصطلحات</h3><div class="pb gl-list">${TERMS.map(([k,v])=>`<div><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join('')}</div></div>`;
     html += `<p class="disclaimer">هذه المعلومات للاطلاع فقط ويُحيّنها المكتب دوريًا. لأي استفسار تواصلوا مع المكتب.</p></aside></div>`;
     v.innerHTML = html;
     if(window.matchMedia('(max-width:760px)').matches) v.querySelectorAll('details.sec').forEach((el,i)=>{ if(!/الوثائق|الأتعاب/.test(el.querySelector('summary').textContent) && el.querySelectorAll('li,.row').length > 3) el.open = false; });
+    v.querySelectorAll('[data-send-doc]').forEach(b=> b.addEventListener('click', ()=> sendDoc(cases[Number(b.dataset.sendDoc)])));
+    v.querySelectorAll('[data-ics]').forEach(b=> b.addEventListener('click', ()=>{
+      const c = cases[Number(b.dataset.ics)], txt = icsFor(c); if(!txt) return;
+      const url = URL.createObjectURL(new Blob([txt], { type:'text/calendar' }));
+      const a = document.createElement('a'); a.href = url; a.download = 'موعد-' + (c.number||'ملف').replace(/\//g,'-') + '.ics'; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=> URL.revokeObjectURL(url), 30000);
+    }));
+    const ps = $('print-sum'); if(ps) ps.addEventListener('click', ()=> printSummary(d));
     v.querySelectorAll('[data-doc]').forEach(b=> b.addEventListener('click', ()=>{
       const [ci, di] = b.dataset.doc.split(':').map(Number);
       openDoc(cases[ci].docs[di], b);
@@ -419,6 +540,36 @@
     window.scrollTo(0,0);
   }
 
+  function sendDoc(c){
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*,application/pdf'; inp.multiple = true;
+    inp.addEventListener('change', async ()=>{
+      const files = [...inp.files]; if(!files.length) return;
+      const text = 'وثيقة بخصوص الملف عدد ' + (c.number || c.title || '') + ' — ' + (creds && creds.id ? creds.id : '');
+      if(navigator.canShare && navigator.canShare({ files })){
+        try{ await navigator.share({ files, text, title: text }); return; }catch(e){ if(e && e.name==='AbortError') return; }
+      }
+      const link = waOffice(text + '\n(سأرفق الوثيقة في هذه المحادثة)');
+      alert('هذا الجهاز لا يدعم الإرسال المباشر للملف. ستُفتح محادثة المكتب على واتساب — أرفقوا فيها الوثيقة بزر المشبك 📎.');
+      if(link) window.open(link, '_blank');
+    });
+    inp.click();
+  }
+  function printSummary(d){
+    const cases = d.cases || [];
+    const box = document.createElement('div'); box.id = 'print-sheet';
+    const now = new Date();
+    box.innerHTML = `<div class="ps-h">${office.logo ? `<img src="${esc(office.logo)}">` : ''}<div><b>${esc(office.name || 'مكتب المحاماة')}</b><span>${esc(office.address || '')}${office.phone ? ' · ' + esc(office.phone) : ''}</span></div></div>
+      <h1>ملخص الملفات — ${esc(d.client && d.client.name || '')}</h1><p class="ps-d">بتاريخ ${dt(now.toISOString().slice(0,10))}</p>
+      ${cases.map(c=>`<div class="ps-c"><h2>${esc(c.title || 'ملف')} ${c.number ? `— <span class="ltr">${esc(c.number)}</span>` : ''}</h2>
+        <table>${[['المحكمة', c.court], ['المرحلة الحالية', c.ph ? c.ph.label : c.status], ['الوضعية', c.ph ? c.ph.head : ''], ...(c.ph ? (c.ph.big||[]).concat(c.ph.facts||[]) : []), ['الخطوة المقبلة', c.ph ? c.ph.next : '']].filter(r=> r[1]).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}
+        ${c.fees ? `<tr><td>الأتعاب</td><td>المتفق عليها ${money(c.fees.agreed)} · المدفوع ${money(c.fees.paid)} · الباقي ${money(c.fees.remaining)}</td></tr>` : ''}</table></div>`).join('')}
+      ${(d.payments||[]).length ? `<div class="ps-c"><h2>الدفعات المسجلة</h2><table>${d.payments.map(p=>`<tr><td>${dt(p.date)}</td><td>${money(p.amount)}${p.note ? ' — ' + esc(p.note) : ''}</td></tr>`).join('')}</table></div>` : ''}
+      <p class="ps-f">وثيقة إخبارية أُعدّت من بوابة الموكلين، ولا تقوم مقام شهادة رسمية.</p>`;
+    document.body.appendChild(box); document.body.classList.add('printing');
+    const done = ()=>{ document.body.classList.remove('printing'); box.remove(); window.removeEventListener('afterprint', done); };
+    window.addEventListener('afterprint', done);
+    setTimeout(()=>{ window.print(); setTimeout(()=>{ if(document.body.classList.contains('printing')) done(); }, 1500); }, 100);
+  }
   async function openDoc(doc, btn){
     const old = btn.innerHTML; btn.disabled = true; btn.textContent = '…';
     const isAndroid = /Android/i.test(navigator.userAgent);
