@@ -8,6 +8,14 @@
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#0f2338">
 <title>بوابة الموكلين</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ملفاتي">
+<script>try{ if(localStorage.getItem('portalDark')==='1') document.documentElement.classList.add('dark'); var z = Number(localStorage.getItem('portalZoom')||1); if(z && z!==1) document.documentElement.style.setProperty('--pz', z); if(localStorage.getItem('portalLang')==='fr'){ document.documentElement.lang='fr'; document.documentElement.dir='ltr'; } }catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -301,6 +309,53 @@
   .main-full{min-width:0;}
   .pay-full{margin-top:6px;}
   @media (max-width:600px){ .cbar{padding:10px;} .cbar-b{width:100%;} .cbar-b .btn{flex:1 1 calc(50% - 8px);padding:9px 8px;font-size:13px;} .cbar-b #print-sum{flex-basis:100%;} }
+
+  /* ===== v78 ===== */
+  body{zoom:var(--pz,1);}
+  .tools{display:flex;gap:4px;align-items:center;}
+  .hd .tools button{padding:6px 9px;font-size:13px;min-width:34px;justify-content:center;font-weight:800;}
+  .hd .tools button.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  html.dark{filter:invert(.9) hue-rotate(180deg);background:#111;}
+  html.dark img, html.dark .noinv, html.dark .emo, html.dark .welcome, html.dark footer, html.dark .strip, html.dark .login-art{filter:invert(1) hue-rotate(180deg);}
+  html.dark .welcome img, html.dark footer img, html.dark .login-art img{filter:none;}
+  html[dir=ltr] .note{border-right:0;border-left:3px solid var(--brass);}
+  .lbrand{display:flex;align-items:center;gap:12px;padding:0 0 16px;margin:0 0 16px;border-bottom:1px solid var(--border);}
+  .lbrand img{width:64px;height:64px;object-fit:contain;mix-blend-mode:multiply;flex:none;}
+  .lbrand b{display:block;font-family:var(--kufi);font-size:17px;color:var(--ink);line-height:1.4;}
+  .lbrand span{display:block;font-size:12.5px;color:var(--brass);font-weight:600;}
+  .linkbtn{background:none;border:0;padding:0;color:#1f5fae;font:inherit;font-weight:700;cursor:pointer;text-decoration:underline;}
+  footer .linkbtn{color:var(--brass-light);}
+  .inst{margin-top:12px;}
+  .last-in{font-size:12.5px;color:var(--slate);margin-top:4px;}
+  .idle-msg{background:#fff6e5;border:1px solid #f0d9a8;color:#6e5100;border-radius:4px;padding:9px 12px;font-size:13px;margin-bottom:12px;}
+  .pm-ov{position:fixed;inset:0;background:rgba(10,22,36,.55);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;}
+  .pm-box{background:#fff;border-radius:8px;max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+  .pm-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;}
+  .pm-h b{font-family:var(--kufi);font-size:16px;color:var(--ink);}
+  .pm-x{background:none;border:0;font-size:22px;cursor:pointer;color:#5b6b7b;line-height:1;}
+  .pm-b{padding:16px 18px;font-size:14px;line-height:1.9;}
+  .pm-b h4{margin:12px 0 4px;color:var(--ink);font-size:14.5px;}
+  .pm-b p{margin:0 0 8px;}
+  .pm-f{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;}
+  .ap-l{font-weight:700;font-size:13px;color:var(--ink);margin:10px 0 6px;display:block;}
+  .ap-days,.ap-slots{display:flex;flex-wrap:wrap;gap:6px;}
+  .ap-days button,.ap-slots button{border:1px solid var(--border);background:#fff;border-radius:6px;padding:7px 10px;font:inherit;font-size:13px;cursor:pointer;color:var(--ink);line-height:1.4;text-align:center;}
+  .ap-days button small{display:block;font-size:11px;color:#6b7a8a;}
+  .ap-days button.on,.ap-slots button.on{background:#1f5fae;border-color:#1f5fae;color:#fff;}
+  .ap-days button.on small{color:#dbe7f6;}
+  .pm-b select,.pm-b textarea{width:100%;border:1px solid var(--border);border-radius:4px;padding:9px 10px;font:inherit;font-size:14px;background:#fff;}
+  .ap-hint{font-size:12.5px;color:#6b7a8a;margin-top:6px;}
+  .st-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+  .st-sum div{border:1px solid var(--border);border-radius:6px;padding:10px 12px;background:#fafbfc;font-size:12.5px;color:#5b6b7b;}
+  .st-sum b{display:block;font-size:17px;color:var(--ink);margin-top:2px;}
+  .st-sum .rest b{color:#b3261e;} .st-sum .ok b{color:#1f8a4c;}
+  .st-h{font-weight:800;color:var(--ink);font-size:14px;margin:14px 0 8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+  .st-h span{font-weight:600;color:#5b6b7b;font-size:13px;}
+  .st-bar{height:8px;background:#eef1f5;border-radius:99px;overflow:hidden;margin:-4px 0 12px;}
+  .st-bar i{display:block;height:100%;background:#1f8a4c;border-radius:99px;}
+  .rc-btn{padding:4px 9px !important;font-size:12px !important;}
+  @media (max-width:600px){ .st-sum{grid-template-columns:1fr 1fr;} .st-sum div:last-child{grid-column:1/-1;} .hd .tools button{padding:5px 6px;min-width:30px;font-size:12px;} .hd{gap:8px;} .hd img{width:40px;height:40px;} }
+  @media print{ html.dark{filter:none;} .tools{display:none;} }
 </style>
 </head>
 <body>
@@ -316,6 +371,12 @@
       <div class="s" id="o-spec">مكتب المحاماة</div>
     </div>
     <div class="sp"></div>
+    <div class="tools" role="group" aria-label="العرض" dir="ltr">
+      <button type="button" id="t-zm" title="تصغير الخط" aria-label="تصغير الخط">A−</button>
+      <button type="button" id="t-zp" title="تكبير الخط" aria-label="تكبير الخط">A+</button>
+      <button type="button" id="t-dark" title="الوضع الليلي" aria-label="الوضع الليلي"></button>
+      <button type="button" id="t-lang" title="Français / العربية" aria-label="Français">FR</button>
+    </div>
     <button id="logout" class="hidden"><svg class="i" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5"/><path d="M5 12h11"/></svg><span>خروج</span></button>
   </div>
 </header>
@@ -333,6 +394,8 @@
       </ul>
     </div>
     <div class="login">
+      <div class="lbrand hidden" id="lbrand"><img id="lb-logo" class="hidden" alt=""><div><b id="lb-name"></b><span id="lb-sub"></span></div></div>
+      <div class="idle-msg hidden" id="idle-msg">تم الخروج تلقائيًا بعد 10 دقائق من عدم النشاط، حفاظًا على سرية ملفاتكم.</div>
       <h2>تسجيل الدخول</h2>
       <p class="lead">أدخلوا اسمكم وكلمة السر التي أرسلها لكم المكتب.</p>
       <form id="lf" autocomplete="on">
@@ -349,7 +412,8 @@
         <button class="btn full" type="submit" id="lbtn">دخول</button>
       </form>
       <div class="msg" id="lmsg"></div>
-      <div class="note"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg><span>ملفكم مشفّر، ولا يُفتح إلا بكلمة سركم داخل جهازكم. لا تشاركوا كلمة السر مع أي شخص.</span></div>
+      <div class="note"><svg class="i" viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg><span>ملفكم مشفّر، ولا يُفتح إلا بكلمة سركم داخل جهازكم. لا تشاركوا كلمة السر مع أي شخص. <button type="button" class="linkbtn" data-privacy>الخصوصية والسر المهني</button></span></div>
+      <button type="button" class="btn line full inst hidden" data-install>📲 تثبيت البوابة على هاتفي</button>
     </div>
   </section>
 
@@ -361,7 +425,7 @@
 (function(){
   const $ = id => document.getElementById(id);
   const enc = new TextEncoder();
-  let office = {}, creds = null;
+  let office = {}, creds = null, lastData = null, lastIn = null;
   // أساس المسارات: يعمل سواء فُتحت البوابة على /espace أو /espace/ أو /espace/index.html
   const BASE = (()=>{ let p = location.pathname; if(!p.endsWith('/')){ const last = p.split('/').pop(); p = last.includes('.') ? p.slice(0, p.lastIndexOf('/') + 1) : p + '/'; } return p; })();
 
@@ -374,9 +438,13 @@
   function hex(buf){ return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
   async function sha(s){ return new Uint8Array(await crypto.subtle.digest('SHA-256', enc.encode(s))); }
   const MONTHS = ['يناير','فبراير','مارس','أبريل','ماي','يونيو','يوليوز','غشت','شتنبر','أكتوبر','نونبر','دجنبر'];
-  function dt(iso){ if(!iso) return ''; const d = new Date(String(iso).slice(0,10)+'T00:00:00'); return isNaN(d) ? esc(iso) : `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; }
+  const MONTHS_FR = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  const LS = (k, v)=>{ try{ if(v === undefined) return localStorage.getItem(k); if(v === null) localStorage.removeItem(k); else localStorage.setItem(k, String(v)); }catch(e){} return null; };
+  let lang = LS('portalLang') === 'fr' ? 'fr' : 'ar';
+  const FRL = ()=> lang === 'fr';
+  function dt(iso){ if(!iso) return ''; const d = new Date(String(iso).slice(0,10)+'T00:00:00'); return isNaN(d) ? esc(iso) : `${d.getDate()} ${(FRL() ? MONTHS_FR : MONTHS)[d.getMonth()]} ${d.getFullYear()}`; }
   function fmtShort(iso){ if(!iso) return ''; const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso)); return m ? `${m[3]}/${m[2]}/${m[1]}` : String(iso); }
-  function money(n){ return `<span class="ltr">${Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2})}</span> درهم`; }
+  function money(n){ return `<span class="ltr">${Number(n||0).toLocaleString(FRL() ? 'fr-FR' : 'en-US',{maximumFractionDigits:2})}</span> ${FRL() ? 'DH' : 'درهم'}`; }
 
   async function deriveKey(id, secret){
     const salt = (await sha('elm-portal-salt|' + id)).slice(0,16);
@@ -403,8 +471,16 @@
     }catch(e){}
     if(office.name){ $('o-name').textContent = office.name; document.title = 'بوابة الموكلين — ' + office.name; }
     $('o-spec').textContent = office.specialty || 'بوابة الموكلين';
-    if(office.logo){ $('o-logo').src = office.logo; $('o-logo').classList.remove('hidden'); }
-    $('foot').innerHTML = [office.name, office.address, office.phone ? `<span class="ltr">${esc(office.phone)}</span>` : '', office.email].filter(Boolean).map(x=> `<span>${x.startsWith('<') ? x : esc(x)}</span>`).join('');
+    if(office.logo){ $('o-logo').src = office.logo; $('o-logo').classList.remove('hidden'); $('lb-logo').src = office.logo; $('lb-logo').classList.remove('hidden'); }
+    if(office.name){
+      $('lb-name').textContent = office.name;
+      $('lb-sub').textContent = office.lawyer ? ('الأستاذ ' + office.lawyer + (office.bar ? ' — محامٍ ب' + office.bar : '')) : (office.specialty || '');
+      $('lbrand').classList.remove('hidden');
+      const kick = document.querySelector('.login-art .kick'); if(kick) kick.textContent = 'بوابة موكلي ' + office.name;
+    }
+    $('foot').innerHTML = [office.name, office.address, office.phone ? `<span class="ltr">${esc(office.phone)}</span>` : '', office.email].filter(Boolean).map(x=> `<span>${x.startsWith('<') ? x : esc(x)}</span>`).join('')
+      + `<span><button type="button" class="linkbtn" data-privacy>الخصوصية والسر المهني</button></span>`;
+    trAll();
   }
 
   async function login(id, secret, remember){
@@ -420,10 +496,12 @@
       catch(e){ throw new Error('اسم المستخدم أو كلمة السر غير صحيح'); }
       creds = { id, key };
       try{ if(remember) localStorage.setItem('portalCreds', JSON.stringify({ v:2, id, secret })); }catch(e){}
+      lastIn = Number(LS('portalLast-' + id) || 0) || null; LS('portalLast-' + id, Date.now());
+      $('idle-msg').classList.add('hidden'); bump();
       render(data);
     }catch(e){
       $('lmsg').textContent = e.message === 'net' ? 'تعذّر الاتصال — تحقق من الإنترنت' : e.message;
-    }finally{ $('lbtn').disabled = false; $('lbtn').textContent = 'دخول'; }
+    }finally{ $('lbtn').disabled = false; $('lbtn').textContent = 'دخول'; trAll(); }
   }
 
   const IC = {
@@ -472,6 +550,7 @@
       'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:' + title,'END:VALARM','BEGIN:VALARM','TRIGGER:-PT2H','ACTION:DISPLAY','DESCRIPTION:' + title,'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
   }
   function render(d){
+    lastData = d;
     $('login').classList.add('hidden'); $('logout').classList.remove('hidden');
     const v = $('view'); v.classList.remove('hidden');
     const cases = d.cases || [];
@@ -483,12 +562,13 @@
 
     let html = `<div class="welcome">
       <h2>مرحبًا، ${esc(d.client && d.client.name || '')}</h2>
-      <div class="upd">${ic('clock')} آخر تحديث للمعلومات: ${office.lastPublish ? new Date(office.lastPublish).toLocaleString('ar-MA') : '—'}</div>
+      <div class="upd">${ic('clock')} آخر تحديث للمعلومات: ${office.lastPublish ? new Date(office.lastPublish).toLocaleString(FRL() ? 'fr-FR' : 'ar-MA') : '—'}</div>
+      ${lastIn ? `<div class="last-in">🔐 آخر دخول من هذا الجهاز: ${new Date(lastIn).toLocaleString(FRL() ? 'fr-FR' : 'ar-MA')}</div>` : ''}
       ${office.portalQuote ? `<div class="quote">${esc(office.portalQuote)}</div>` : ''}
     </div>
     <div class="cbar">
       <span class="cbar-t">${ic('phone')} التواصل مع المكتب</span>
-      <div class="cbar-b">${contact.join('')}<button class="btn brass" id="print-sum">${ic('down')} ملخص ملفاتي (PDF)</button></div>
+      <div class="cbar-b">${contact.join('')}${office.whatsapp ? `<button class="btn line" type="button" id="appt-btn">${ic('cal')} طلب موعد بالمكتب</button>` : ''}<button class="btn brass" id="print-sum">${ic('down')} ملخص ملفاتي (PDF)</button><button type="button" class="btn line hidden" data-install>📲 تثبيت البوابة على هاتفي</button></div>
     </div>
     <div class="stats">
       <div class="stat"><div class="ic">${ic('folder')}</div><div><b>${cases.length}</b><span>${active && active !== cases.length ? `ملفات (${active} جارية)` : 'ملفات'}</span></div></div>
@@ -504,8 +584,9 @@
         return n ? `<div class="upd-banner">🆕 تم تحديث ${n === 1 ? 'ملف واحد' : n + ' ملفات'} منذ زيارتكم الأخيرة — تجدونه مميَّزًا بعلامة «جديد».</div>` : ''; })()}
     ${(()=>{ let todos = cases.flatMap(c=> (c.todo||[]).map(t=> ({ ...t, num: c.number })));
         const fees = todos.filter(t=> t.kind==='fees');
-        if(fees.length > 1){ const sum = fees.reduce((s,t)=> s + Number(t.amount||0), 0); todos = todos.filter(t=> t.kind!=='fees'); todos.push({ kind:'fees', text: sum ? 'أداء باقي الأتعاب: ' + Number(sum).toLocaleString('en-US') + ' درهم' : fees[0].text, num: fees.length + ' ملفات', due:'' }); }
+        if(fees.length > 1){ const sum = fees.reduce((s,t)=> s + Number(t.amount||0), 0); todos = todos.filter(t=> t.kind!=='fees'); todos.push({ kind:'fees', amount: sum, text: sum ? 'أداء باقي الأتعاب: ' + Number(sum).toLocaleString('en-US') + ' درهم' : fees[0].text, num: fees.length + ' ملفات', due:'' }); }
         todos.sort((a,b)=> (a.due||'9999').localeCompare(b.due||'9999'));
+        if(FRL()) todos = todos.map(t=> ({ ...t, text: frTodo(t) }));
         if(!todos.length) return '';
         const icn = { presence:'🧑‍⚖️', expert:'🔬', decide:'⚖️', request:'📌', fees:'💳' };
         return `<div class="todo-panel"><h3>✅ المطلوب منكم</h3>${todos.map(t=>`<div class="todo k-${t.kind}"><span class="ti">${icn[t.kind]||'📌'}</span><div><b>${esc(t.text)}</b><small>${t.num ? (/ملفات/.test(t.num) ? esc(t.num) : 'الملف ' + `<span class="ltr">${esc(t.num)}</span>`) : ''}${t.due ? ' · قبل ' + dt(t.due) : ''}</small></div></div>`).join('')}</div>`; })()}
@@ -535,7 +616,7 @@
       // v73: «أين وصل ملفي» — المرحلة الحالية ومعطياتها الأساسية
       let pst = '';
       if(c.ph){
-        const P = c.ph;
+        const P = FRL() ? frPh(c.ph) : c.ph;
         nx = '';
         pst = `<div class="pst">
           <div class="pst-steps">${(P.steps||[]).map((t,i)=>`<div class="${i < P.step ? 'dn' : i===P.step ? 'cur' : ''}"><i>${i < P.step ? '✓' : i+1}</i><span>${esc(t)}</span></div>`).join('')}</div>
@@ -556,7 +637,7 @@
       if((c.executions||[]).length) secs.push(sec('gavel','التنفيذ', c.executions.length, c.executions.map(n=>`<div class="row"><span>ملف تنفيذ <span class="ltr">${esc(n.number||'')}</span></span><span>${esc(n.status||'')}${n.date ? ' — ' + dt(n.date) : ''}</span></div>`).join('')));
       if(c.fees){
         const rem = Number(c.fees.remaining||0);
-        secs.push(sec('money','الأتعاب', 0, `<div class="fees"><div>المتفق عليها<b>${money(c.fees.agreed)}</b></div><div>المدفوع<b>${money(c.fees.paid)}</b></div><div class="${rem > 0 ? 'rest' : 'ok'}">الباقي<b>${money(c.fees.remaining)}</b></div></div>${c.fees.note ? `<div class="meta" style="margin-top:6px;">${esc(c.fees.note)}</div>` : ''}`));
+        secs.push(sec('money','كشف الحساب', 0, stmtHtml(c, d)));
       }
       if((c.docs||[]).length) secs.push(sec('doc','الوثائق', c.docs.length, c.docs.map((x,di)=>{
         const pdf = x.type === 'application/pdf';
@@ -577,8 +658,7 @@
         if(K.linked.length) tabs.push(['linked', 'الملفات المرتبطة', K.linked.length, `<div class="tbl-wrap"><table class="ptbl"><thead><tr><th>نوع الملف</th><th>الرقم</th><th>الجهة</th><th>الحالة</th></tr></thead><tbody>${K.linked.map(x=>`<tr><td data-l="نوع الملف">${esc(x.rel)}</td><td data-l="الرقم"><span class="ltr">${esc(x.number||'—')}</span></td><td data-l="الجهة">${esc(x.court||'—')}</td><td data-l="الحالة">${esc(x.status||'—')}</td></tr>`).join('')}</tbody></table></div>`]);
         if((c.docs||[]).length) tabs.push(['docs', 'الوثائق', c.docs.length, c.docs.map((x,di)=>{ const pdf = x.type === 'application/pdf';
           return `<div class="doc"><div class="fi ${pdf?'':'img'}">${ic(pdf?'doc':'img')}</div><div class="nm">${esc(x.name)}<small>${dt(x.date)}</small></div><button class="btn brass sm" data-doc="${ci}:${di}">${ic('down')} فتح</button></div>`; }).join('')]);
-        if(c.fees){ const rem = Number(c.fees.remaining||0);
-          tabs.push(['fees', 'الأتعاب', 0, `<div class="fees"><div>المتفق عليها<b>${money(c.fees.agreed)}</b></div><div>المدفوع<b>${money(c.fees.paid)}</b></div><div class="${rem > 0 ? 'rest' : 'ok'}">الباقي<b>${money(c.fees.remaining)}</b></div></div>${c.fees.note ? `<div class="meta" style="margin-top:6px;">${esc(c.fees.note)}</div>` : ''}`]); }
+        if(c.stmt || c.fees) tabs.push(['stmt', 'كشف الحساب', 0, stmtHtml(c, d)]);
       }
       caseCards.push({ c, ci, html: K ? `<article class="case fc${c._new ? ' is-new' : ''}" data-case="${ci}">
         <div class="fc-head">
@@ -614,10 +694,14 @@
       html += caseCards.map(x=> x.html.replace('data-case="' + x.ci + '"', 'data-case="' + x.ci + '"' + (x.ci===sel ? '' : ' hidden'))).join('');
     }
     if((d.payments||[]).length){
-      html += `<div class="panel pay-full"><h3>${ic('money')} دفعاتكم المسجّلة</h3><div class="pb">${d.payments.map(p=>`<div class="row"><span>${dt(p.date)}${p.note ? ' — <span class="meta">' + esc(p.note) + '</span>' : ''}</span><b>${money(p.amount)}</b></div>`).join('')}</div></div>`;
+      html += `<div class="panel pay-full"><h3>${ic('money')} دفعاتكم المسجّلة</h3><div class="pb">${d.payments.map(p=>{ const r = rcOf(d, p);
+        return `<div class="row"><span>${dt(p.date)}${p.no ? ` — وصل عدد <span class="ltr">${esc(p.no)}</span>` : ''}${p.note ? ' — <span class="meta">' + esc(p.note) + '</span>' : ''}</span><span style="display:flex;gap:8px;align-items:center;"><b>${money(p.amount)}</b>${r ? `<button type="button" class="btn brass sm rc-btn" data-rc="${esc(p.id)}">${ic('down')} الوصل</button>` : ''}</span></div>`; }).join('')}</div></div>`;
     }
     html += `<p class="disclaimer">هذه المعلومات للاطلاع فقط ويُحيّنها المكتب دوريًا. لأي استفسار تواصلوا مع المكتب.</p></div>`;
     v.innerHTML = html;
+    v.querySelectorAll('[data-rc]').forEach(b=> b.addEventListener('click', ()=>{ const r = (d.receipts||[]).find(x=> String(x.pid) === b.dataset.rc); if(r) openDoc({ file: r.file, name: 'وصل-' + String(r.no||'').replace(/[\/\\]/g,'-') + '.pdf', type:'application/pdf' }, b); }));
+    const ab = $('appt-btn'); if(ab) ab.addEventListener('click', ()=> apptOpen(d));
+    syncInstall();
     if(window.matchMedia('(max-width:760px)').matches) v.querySelectorAll('details.sec').forEach((el,i)=>{ if(!/الوثائق|الأتعاب/.test(el.querySelector('summary').textContent) && el.querySelectorAll('li,.row').length > 3) el.open = false; });
     v.querySelectorAll('[data-fsw]').forEach(b=> b.addEventListener('click', ()=>{
       const i = b.dataset.fsw;
@@ -644,7 +728,251 @@
       const [ci, di] = b.dataset.doc.split(':').map(Number);
       openDoc(cases[ci].docs[di], b);
     }));
+    trAll();
     window.scrollTo(0,0);
+  }
+
+  // ===================== v78 =====================
+  // ---- كشف الحساب ووصولات الأداء
+  function rcOf(d, p){ return (p && p.id != null && (d.receipts||[]).find(x=> String(x.pid) === String(p.id))) || null; }
+  function stmtHtml(c, d){
+    const S = c.stmt || { agreed: c.fees ? c.fees.agreed : 0, paid: c.fees ? c.fees.paid : 0, remaining: c.fees ? c.fees.remaining : 0, expenses:[], payments:[] };
+    const ag = Number(S.agreed||0), pd = Number(S.paid||0), rem = Number(S.remaining != null ? S.remaining : Math.max(0, ag - pd));
+    const pct = ag > 0 ? Math.min(100, Math.round(pd / ag * 100)) : 0;
+    let h = `<div class="st-sum"><div>الأتعاب المتفق عليها<b>${ag ? money(ag) : '—'}</b></div><div class="ok">المدفوع<b>${money(pd)}</b></div><div class="${rem > 0 ? 'rest' : 'ok'}">الباقي<b>${money(rem)}</b></div></div>`;
+    if(ag > 0) h += `<div class="st-bar" title="${pct}%"><i style="width:${pct}%"></i></div>`;
+    const pays = (S.payments||[]).slice().sort((a,b)=> String(b.date||'').localeCompare(String(a.date||'')));
+    h += `<div class="st-h">الدفعات المسجلة لهذا الملف <span>${pays.length}</span></div>`;
+    h += pays.length ? `<div class="tbl-wrap"><table class="ptbl"><thead><tr><th>التاريخ</th><th>المبلغ</th><th>رقم الوصل</th><th>طريقة الأداء</th><th>الوصل</th></tr></thead><tbody>${pays.map(p=>{ const r = rcOf(d, p);
+        return `<tr><td data-l="التاريخ">${dt(p.date) || '—'}</td><td data-l="المبلغ"><b>${money(p.amount)}</b></td><td data-l="رقم الوصل">${p.no ? `<span class="ltr">${esc(p.no)}</span>` : '—'}</td><td data-l="طريقة الأداء">${esc(p.method || '—')}</td><td data-l="الوصل">${r ? `<button type="button" class="btn brass sm rc-btn" data-rc="${esc(p.id)}">${ic('down')} PDF</button>` : '<span class="nil"></span>'}</td></tr>`; }).join('')}</tbody></table></div>`
+      : '<p class="empty-t">لا توجد دفعات مسجلة لهذا الملف.</p>';
+    const ex = S.expenses||[];
+    if(ex.length){
+      const tot = ex.reduce((t,e)=> t + Number(e.amount||0), 0);
+      h += `<div class="st-h">المصاريف المؤداة في الملف <span>المجموع: ${money(tot)}</span></div><div class="tbl-wrap"><table class="ptbl"><thead><tr><th>التاريخ</th><th>البيان</th><th>المبلغ</th></tr></thead><tbody>${ex.map(e=>`<tr><td data-l="التاريخ">${dt(e.date) || '—'}</td><td data-l="البيان">${esc(e.label || '—')}</td><td data-l="المبلغ">${money(e.amount)}</td></tr>`).join('')}</tbody></table></div>`;
+    }
+    if(c.fees && c.fees.note) h += `<div class="meta" style="margin-top:8px;">${esc(c.fees.note)}</div>`;
+    if(pays.some(p=> rcOf(d, p))) h += `<p class="ap-hint">يمكنكم تحميل وصل كل دفعة بصيغة PDF والاحتفاظ به.</p>`;
+    return h;
+  }
+
+  // ---- نافذة عامة
+  function modal(title, body, foot){
+    document.querySelectorAll('.pm-ov').forEach(x=> x.remove());
+    const ov = document.createElement('div'); ov.className = 'pm-ov';
+    ov.innerHTML = `<div class="pm-box" role="dialog" aria-modal="true"><div class="pm-h"><b>${title}</b><button type="button" class="pm-x" aria-label="إغلاق">×</button></div><div class="pm-b">${body}</div>${foot ? `<div class="pm-f">${foot}</div>` : ''}</div>`;
+    const close = ()=> ov.remove();
+    ov.addEventListener('click', e=>{ if(e.target === ov || e.target.closest('.pm-x') || e.target.closest('[data-close]')) close(); });
+    document.body.appendChild(ov); trAll();
+    return ov;
+  }
+
+  // ---- طلب موعد بالمكتب حسب أوقات الاستقبال
+  const WD_AR = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const WD_FR = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  function apptDays(){
+    const H = office.hours || { days:[1,2,3,4], from:'16:00', to:'19:00' };
+    const days = (H.days && H.days.length ? H.days : [1,2,3,4]).map(Number);
+    const [fh, fm] = String(H.from || '16:00').split(':').map(Number), [th, tm] = String(H.to || '19:00').split(':').map(Number);
+    const out = [], now = new Date();
+    for(let i = 0; i < 30 && out.length < 12; i++){
+      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+      if(!days.includes(d.getDay())) continue;
+      const slots = [];
+      for(let m = fh*60 + (fm||0); m + 30 <= th*60 + (tm||0); m += 30){
+        const at = new Date(d.getFullYear(), d.getMonth(), d.getDate(), Math.floor(m/60), m%60);
+        if(at - now < 2*3600*1000) continue; // مهلة ساعتين على الأقل
+        slots.push(String(Math.floor(m/60)).padStart(2,'0') + ':' + String(m%60).padStart(2,'0'));
+      }
+      if(slots.length) out.push({ d, slots });
+    }
+    return out;
+  }
+  function apptOpen(d){
+    const list = apptDays(), cases = d.cases || [];
+    const H = office.hours || { days:[1,2,3,4], from:'16:00', to:'19:00' };
+    const wd = FRL() ? WD_FR : WD_AR;
+    const daysTxt = (H.days||[1,2,3,4]).map(Number).sort((a,b)=> ((a+6)%7) - ((b+6)%7)).map(x=> wd[x]).join(FRL() ? ', ' : '، ');
+    if(!list.length){ modal('📅 طلب موعد بالمكتب', `<p>لا توجد مواعيد متاحة حاليًا. المرجو التواصل مع المكتب مباشرة.</p>`, `<button class="btn line" data-close>إغلاق</button>`); return; }
+    let selD = 0, selT = '';
+    const ov = modal('📅 طلب موعد بالمكتب', `
+      <p class="ap-hint" style="margin:0 0 4px;">أوقات الاستقبال: <b>${esc(daysTxt)}</b> — <span class="ltr">${esc(H.from||'16:00')} – ${esc(H.to||'19:00')}</span></p>
+      <span class="ap-l">اختاروا اليوم</span><div class="ap-days">${list.map((x,i)=>`<button type="button" data-ad="${i}" class="${i===0 ? 'on' : ''}">${esc(wd[x.d.getDay()])}<small>${dt(x.d.getFullYear() + '-' + String(x.d.getMonth()+1).padStart(2,'0') + '-' + String(x.d.getDate()).padStart(2,'0'))}</small></button>`).join('')}</div>
+      <span class="ap-l">الساعة المفضلة</span><div class="ap-slots" id="ap-slots"></div>
+      ${cases.length ? `<span class="ap-l">الملف المعني (اختياري)</span><select id="ap-case"><option value="">— موضوع عام —</option>${cases.map((c,i)=>`<option value="${i}">${esc((c.number ? c.number + ' — ' : '') + (c.title || ''))}</option>`).join('')}</select>` : ''}
+      <span class="ap-l">موضوع الموعد (اختياري)</span><textarea id="ap-note" rows="2" placeholder="مثال: الاطلاع على مستجدات الملف، تسليم وثائق…"></textarea>
+      <p class="ap-hint">سيُرسل طلبكم إلى المكتب عبر واتساب، ويؤكد المكتب الموعد بعد مراجعة جدوله.</p>`,
+      `<button class="btn line" data-close>إلغاء</button><button class="btn green" id="ap-send" disabled>${ic('chat')} إرسال الطلب عبر واتساب</button>`);
+    const box = ov.querySelector('#ap-slots'), send = ov.querySelector('#ap-send');
+    const drawSlots = ()=>{
+      box.innerHTML = list[selD].slots.map(t=>`<button type="button" data-at="${t}" class="ltr${t===selT ? ' on' : ''}">${t}</button>`).join('');
+      send.disabled = !selT;
+    };
+    drawSlots();
+    ov.querySelectorAll('[data-ad]').forEach(b=> b.addEventListener('click', ()=>{ selD = Number(b.dataset.ad); selT = ''; ov.querySelectorAll('[data-ad]').forEach(x=> x.classList.toggle('on', x===b)); drawSlots(); }));
+    box.addEventListener('click', e=>{ const b = e.target.closest('[data-at]'); if(!b) return; selT = b.dataset.at; drawSlots(); });
+    send.addEventListener('click', ()=>{
+      const x = list[selD], cs = ov.querySelector('#ap-case'), c = cs && cs.value !== '' ? cases[Number(cs.value)] : null;
+      const note = ov.querySelector('#ap-note').value.trim(), who = (d.client && d.client.name) || (creds && creds.id) || '';
+      const day = wd[x.d.getDay()] + ' ' + dt(x.d.getFullYear() + '-' + String(x.d.getMonth()+1).padStart(2,'0') + '-' + String(x.d.getDate()).padStart(2,'0'));
+      const txt = FRL()
+        ? ['Demande de rendez-vous au cabinet', 'Client : ' + who, 'Jour : ' + day, 'Heure : ' + selT, c ? 'Dossier : ' + (c.number || c.title || '') : '', note ? 'Objet : ' + note : '', '(envoyé depuis l’espace client)'].filter(Boolean).join('\n')
+        : ['طلب موعد بالمكتب', 'الموكل: ' + who, 'اليوم: ' + day, 'الساعة: ' + selT, c ? 'الملف: ' + (c.number || c.title || '') : '', note ? 'الموضوع: ' + note : '', '(مرسل من بوابة الموكلين)'].filter(Boolean).join('\n');
+      const link = waOffice(txt); if(link) window.open(link, '_blank');
+      ov.remove();
+    });
+  }
+
+  // ---- الخصوصية والسر المهني
+  function privacyOpen(){
+    const n = esc(office.name || 'المكتب');
+    const body = FRL() ? `
+      <h4>Secret professionnel</h4><p>Les informations de vos dossiers sont couvertes par le secret professionnel de l’avocat. Cet espace n’est qu’un moyen de vous tenir informé(e).</p>
+      <h4>Chiffrement</h4><p>Vos données sont chiffrées (AES-256) sur l’appareil du cabinet avant d’être publiées. Elles ne peuvent être déchiffrées que sur votre appareil, avec votre mot de passe. Ni l’hébergeur ni personne d’autre ne peut les lire.</p>
+      <h4>Ce que nous ne collectons pas</h4><p>Aucun compte, aucun cookie publicitaire, aucun suivi. Seules vos préférences (langue, taille du texte, mode nuit) et, si vous le choisissez, vos identifiants sont gardés sur cet appareil.</p>
+      <h4>Votre sécurité</h4><p>Déconnexion automatique après 10 minutes d’inactivité. N’activez « Se souvenir de moi » que sur un appareil personnel, et ne communiquez jamais votre mot de passe.</p>
+      <h4>Contact</h4><p>Pour toute question ou pour demander la suppression de votre accès, contactez ${n}.</p>`
+    : `
+      <h4>السر المهني</h4><p>معطيات ملفاتكم مشمولة بالسر المهني للمحامي، وهذه البوابة مجرد وسيلة لإطلاعكم على مآل ملفاتكم.</p>
+      <h4>التشفير</h4><p>تُشفَّر معطياتكم (AES-256) على جهاز المكتب قبل نشرها، ولا يمكن فكّ تشفيرها إلا داخل جهازكم وبكلمة سركم. لا يستطيع مزوّد الاستضافة ولا أي طرف آخر الاطلاع عليها.</p>
+      <h4>ما لا نجمعه</h4><p>لا حسابات، ولا ملفات تتبّع إشهارية، ولا مراقبة. يُحفظ على هذا الجهاز فقط تفضيلاتكم (اللغة، حجم الخط، الوضع الليلي)، وبيانات الدخول إن اخترتم «تذكّرني».</p>
+      <h4>سلامتكم</h4><p>يتم الخروج تلقائيًا بعد 10 دقائق من عدم النشاط. لا تفعّلوا «تذكّرني» إلا على جهاز شخصي، ولا تشاركوا كلمة السر مع أي شخص.</p>
+      <h4>التواصل</h4><p>لأي استفسار أو لطلب إلغاء ولوجكم إلى البوابة، تواصلوا مع ${n}.</p>`;
+    modal('🔒 ' + (FRL() ? 'Confidentialité et secret professionnel' : 'الخصوصية والسر المهني'), body, `<button class="btn" data-close>${FRL() ? 'Fermer' : 'إغلاق'}</button>`);
+  }
+
+  // ---- التثبيت كتطبيق
+  let instEvt = null;
+  const isStandalone = ()=> (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  function syncInstall(){ const show = !isStandalone() && !!(instEvt || isIOS); document.querySelectorAll('[data-install]').forEach(b=> b.classList.toggle('hidden', !show)); }
+  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); instEvt = e; syncInstall(); });
+  window.addEventListener('appinstalled', ()=>{ instEvt = null; syncInstall(); });
+  async function doInstall(){
+    if(instEvt){ const ev = instEvt; instEvt = null; try{ ev.prompt(); await ev.userChoice; }catch(e){} syncInstall(); return; }
+    modal('📲 تثبيت البوابة على هاتفي', `<p>لإضافة البوابة إلى الشاشة الرئيسية لجهاز iPhone / iPad:</p>
+      <p>١. افتحوا هذه الصفحة في متصفح <b>Safari</b>.</p><p>٢. اضغطوا زر المشاركة <b>⬆️</b> أسفل الشاشة.</p><p>٣. اختاروا «<b>إضافة إلى الشاشة الرئيسية</b>» ثم «إضافة».</p>
+      <p class="ap-hint">ستظهر أيقونة «ملفاتي» على هاتفكم، وتُفتح البوابة مباشرة كتطبيق.</p>`, `<button class="btn" data-close>حسنًا</button>`);
+  }
+  document.addEventListener('click', e=>{
+    if(e.target.closest('[data-install]')){ e.preventDefault(); doInstall(); }
+    else if(e.target.closest('[data-privacy]')){ e.preventDefault(); privacyOpen(); }
+  });
+
+  // ---- الخروج التلقائي بعد عدم النشاط
+  const IDLE_MS = 10 * 60 * 1000;
+  let lastAct = Date.now();
+  function bump(){ lastAct = Date.now(); }
+  ['pointerdown','keydown','scroll','touchstart','wheel'].forEach(ev=> window.addEventListener(ev, bump, { passive:true }));
+  const idleCheck = ()=>{ if(creds && Date.now() - lastAct > IDLE_MS) doLogout(true); };
+  setInterval(idleCheck, 15000);
+  document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'visible') idleCheck(); });
+
+  // ---- العرض: حجم الخط والوضع الليلي واللغة
+  const ZS = [0.9, 1, 1.1, 1.2, 1.35];
+  function setZoom(step){
+    let z = Number(LS('portalZoom') || 1), i = ZS.indexOf(z); if(i < 0) i = 1;
+    i = Math.max(0, Math.min(ZS.length - 1, i + step)); z = ZS[i];
+    document.documentElement.style.setProperty('--pz', z); LS('portalZoom', z === 1 ? null : z);
+    $('t-zm').disabled = i === 0; $('t-zp').disabled = i === ZS.length - 1;
+  }
+  function syncDark(){ const on = document.documentElement.classList.contains('dark');
+    $('t-dark').innerHTML = on ? '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>' : '<svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+    $('t-dark').classList.toggle('on', on); }
+  $('t-zm').addEventListener('click', ()=> setZoom(-1));
+  $('t-zp').addEventListener('click', ()=> setZoom(1));
+  $('t-dark').addEventListener('click', ()=>{ const on = document.documentElement.classList.toggle('dark'); LS('portalDark', on ? '1' : null); syncDark(); });
+  $('t-lang').addEventListener('click', ()=>{
+    lang = FRL() ? 'ar' : 'fr'; LS('portalLang', lang === 'fr' ? 'fr' : null);
+    if(lastData){ const y = window.scrollY; render(lastData); window.scrollTo(0, y); } else trAll();
+  });
+  setZoom(0); syncDark();
+
+  // ---- الترجمة الفرنسية (واجهة البوابة فقط — معطيات الملف المدخلة تبقى كما كتبها المكتب)
+  const FR_HEAD = {
+    closed:'La procédure de ce dossier est terminée.', exec:'Le dossier est en phase d’exécution de la décision.',
+    appeal:'Un recours a été formé ; le dossier est désormais devant la juridiction de recours.', verdict:'Une décision a été rendue dans votre dossier.',
+    delib:'Le dossier a été mis en délibéré ; la date du prononcé est fixée.', prelim:'Le tribunal a ordonné une mesure d’instruction avant de statuer.',
+    hearing:'Le dossier est inscrit à l’audience indiquée ci-dessous.', filed:'La requête a été enregistrée au tribunal.', pending:'Le dossier est en cours devant le tribunal.',
+    pre:'Le dossier est en cours de traitement par le cabinet.'
+  };
+  const FR_NEXT = {
+    closed:'Le cabinet conserve une copie du dossier ; vous pouvez la demander à tout moment.', exec:'Nous vous informerons de chaque nouvel acte d’exécution et du virement des sommes recouvrées.',
+    appeal:'Nous vous communiquerons la date de la première audience devant la juridiction de recours.', verdict:'Le cabinet vous tiendra informé(e) des suites (notification, recours ou exécution).',
+    delib:'Votre présence n’est pas nécessaire le jour du prononcé ; nous vous informerons de la décision dès qu’elle sera rendue.', prelim:'Nous vous informerons de la suite après l’exécution de la mesure.',
+    hearing:'Nous vous informerons du déroulement de l’audience.', filed:'Dans l’attente de la fixation de la première audience ; nous vous en informerons.', pending:'Nous vous communiquerons la date de la prochaine audience dès qu’elle sera fixée.', pre:''
+  };
+  function frPh(P){
+    const nk = String(P.next || '').replace(/\s+/g, ' ').trim();
+    let next = '';
+    if(nk) next = FR_DICT[nk] || (/قرار الطعن/.test(nk) ? 'Merci de contacter le cabinet au plus tôt pour décider d’un éventuel recours : le délai légal est limité.' : '') || FR_NEXT[P.k] || P.next;
+    return { ...P, head: FR_HEAD[P.k] || P.head, next };
+  }
+  function frTodo(t){
+    if(t.kind === 'presence') return 'Votre présence personnelle à l’audience' + (t.due ? ' du ' + dt(t.due) : '');
+    if(t.kind === 'expert') return 'Informer le cabinet dès réception de la convocation de l’expert et préparer les documents demandés';
+    if(t.kind === 'decide') return 'Contacter le cabinet pour décider d’un éventuel recours';
+    if(t.kind === 'fees') return 'Régler le solde des honoraires' + (t.amount ? ' : ' + Number(t.amount).toLocaleString('fr-FR') + ' DH' : '');
+    return t.text;
+  }
+  const AR_MONTHS = ['يناير','فبراير','مارس','أبريل','ماي','يونيو','يوليوز','غشت','شتنبر','أكتوبر','نونبر','دجنبر'];
+  const FR_DICT = {"فضاء خاص ومشفّر": "Espace privé et chiffré", "بوابة الموكلين — الاطلاع على الملفات": "Espace client — consultation des dossiers", "بوابة الموكلين": "Espace client", "مكتب المحاماة": "Cabinet d’avocat", "خروج": "Déconnexion", "تابعوا ملفاتكم لدى المكتب": "Suivez vos dossiers au cabinet", "في أي وقت ومن أي مكان": "à tout moment et où que vous soyez", "اطّلعوا على مآل قضاياكم ومواعيد الجلسات والوثائق التي يشاركها معكم المكتب.": "Consultez l’état de vos affaires, les dates d’audience et les documents partagés par le cabinet.", "الجلسة المقبلة ومراحل الملف": "Prochaine audience et étapes du dossier", "الوثائق المشارَكة معكم": "Documents partagés avec vous", "معطيات مشفّرة لا يطّلع عليها غيركم": "Données chiffrées, accessibles à vous seul(e)", "تم الخروج تلقائيًا بعد 10 دقائق من عدم النشاط، حفاظًا على سرية ملفاتكم.": "Déconnexion automatique après 10 minutes d’inactivité, pour préserver la confidentialité de vos dossiers.", "تسجيل الدخول": "Connexion", "أدخلوا اسمكم وكلمة السر التي أرسلها لكم المكتب.": "Saisissez votre nom et le mot de passe envoyé par le cabinet.", "اسم المستخدم": "Nom d’utilisateur", "كلمة السر": "Mot de passe", "الاسم الكامل": "Nom complet", "إظهار كلمة السر": "Afficher le mot de passe", "تذكّرني على هذا الجهاز": "Se souvenir de moi sur cet appareil", "دخول": "Se connecter", "جارٍ الفتح…": "Ouverture…", "ملفكم مشفّر، ولا يُفتح إلا بكلمة سركم داخل جهازكم. لا تشاركوا كلمة السر مع أي شخص.": "Votre dossier est chiffré et ne s’ouvre qu’avec votre mot de passe, sur votre appareil. Ne communiquez votre mot de passe à personne.", "الخصوصية والسر المهني": "Confidentialité et secret professionnel", "📲 تثبيت البوابة على هاتفي": "📲 Installer", "أدخل اسم المستخدم وكلمة السر كاملين": "Saisissez le nom d’utilisateur et le mot de passe complets", "اسم المستخدم أو كلمة السر غير صحيح": "Nom d’utilisateur ou mot de passe incorrect", "تعذّر الاتصال — تحقق من الإنترنت": "Connexion impossible — vérifiez Internet", "تصغير الخط": "Réduire le texte", "تكبير الخط": "Agrandir le texte", "الوضع الليلي": "Mode nuit", "العرض": "Affichage", "إغلاق": "Fermer", "العربية": "العربية", "آخر تحديث للمعلومات:": "Dernière mise à jour :", "آخر تحديث للمعلومات: —": "Dernière mise à jour : —", "🔐 آخر دخول من هذا الجهاز:": "🔐 Dernière connexion depuis cet appareil :", "التواصل مع المكتب": "Contacter le cabinet", "مراسلة المكتب على واتساب": "Écrire au cabinet sur WhatsApp", "اتصال بالمكتب": "Appeler le cabinet", "طلب موعد بالمكتب": "Demander un rendez-vous", "ملخص ملفاتي (PDF)": "Résumé de mes dossiers (PDF)", "ملفات": "dossiers", "الأتعاب المتفق عليها": "Honoraires convenus", "المدفوع": "Payé", "الباقي": "Reste à payer", "✅ المطلوب منكم": "✅ Ce que nous attendons de vous", "الملف": "Dossier", "ملفاتي": "Mes dossiers", "اختيار الملف": "Choix du dossier", "رسالة من المكتب": "Message du cabinet", "لا توجد ملفات معروضة حاليًا.": "Aucun dossier affiché pour le moment.", "🆕 جديد": "🆕 Nouveau", "جديد": "Nouveau", "بطاقة الملف": "Fiche du dossier", "ملف": "Dossier", "دفعاتكم المسجّلة": "Vos paiements enregistrés", "— وصل عدد": "— reçu n°", "الوصل": "Reçu", "هذه المعلومات للاطلاع فقط ويُحيّنها المكتب دوريًا. لأي استفسار تواصلوا مع المكتب.": "Ces informations sont données à titre indicatif et mises à jour régulièrement par le cabinet. Pour toute question, contactez le cabinet.", "المحكمة": "Tribunal", "رقم الملف بالمحكمة": "N° du dossier au tribunal", "نوع الملف": "Type de dossier", "الرقم الوطني للملف": "N° national du dossier", "المرحلة": "Étape", "القاضي / المستشار المقرر": "Juge / conseiller rapporteur", "الموضوع": "Objet", "تاريخ التسجيل": "Date d’enregistrement", "آخر حكم / قرار": "Dernière décision", "تاريخ آخر حكم / قرار": "Date de la dernière décision", "صفتكم في الملف": "Votre qualité", "صفتكم": "Votre qualité", "مرجع المكتب": "Réf. du cabinet", "رقم الملف": "N° du dossier", "الطرف الآخر": "Partie adverse", "الحالة": "Statut", "المرحلة الحالية": "Étape actuelle", "وسيلة التوجيه": "Mode de notification", "رقم الإجراء": "N° de l’acte", "تاريخ فتح الملف": "Date d’ouverture", "طبيعة الأفعال": "Nature des faits", "رقم الشكاية": "N° de la plainte", "رقم المحضر": "N° du procès-verbal", "رقم ملف التحقيق": "N° d’instruction", "الجهة": "Autorité", "تاريخ الطلب": "Date de la demande", "الجهة / الوسيط": "Autorité / médiateur", "تاريخ البدء": "Date de début", "الجهة التأديبية": "Instance disciplinaire", "المعني بالأمر": "Personne concernée", "تسجيل الدعوى": "Enregistrement", "الإحالة على المحكمة": "Saisine du tribunal", "الجلسات": "Audiences", "المداولة": "Délibéré", "التبليغ والطعن / التنفيذ": "Notification, recours / exécution", "انتهاء الملف": "Clôture", "منتهٍ": "Clôturé", "في التنفيذ": "En exécution", "في مرحلة الطعن": "En recours", "في المداولة": "En délibéré", "إجراء تمهيدي": "Mesure d’instruction", "رائج في الجلسات": "En audience", "سُجّلت الدعوى": "Requête enregistrée", "أُحيل على المحكمة": "Renvoyé devant le tribunal", "رائج أمام المحكمة": "En cours devant le tribunal", "التنفيذ": "Exécution", "الطعن": "Recours", "ملف التنفيذ": "Dossier d’exécution", "حالته": "Son état", "ملف الطعن": "Dossier de recours", "جهة الطعن": "Juridiction de recours", "المكلف بالتنفيذ": "Chargé de l’exécution", "المبالغ المحصلة إلى الآن": "Sommes recouvrées à ce jour", "المآل": "Résultat", "المبلغ المحكوم به": "Montant alloué", "التبليغ": "Notification", "لم يُبلَّغ بعد": "Pas encore notifié", "جارٍ": "En cours", "جارية": "En cours", "منجز": "Terminé", "الساعة": "Heure", "القاعة": "Salle", "اليوم والتاريخ": "Jour et date", "الغرض من الجلسة": "Objet de l’audience", "الإجراء": "Mesure", "أجل الإنجاز": "Délai d’exécution", "الخبير / المكلف": "Expert", "الخبير": "Expert", "الجلسة المقبلة": "Prochaine audience", "الموعد المقبل": "Prochain rendez-vous", "آخر إجراء": "Dernier acte", "مضمونه": "Contenu", "تاريخ الانتهاء": "Date de clôture", "رقم المقال الإلكتروني": "N° de la requête électronique", "النتيجة": "Résultat", "لصالحكم": "en votre faveur", "لصالحكم جزئيًا": "partiellement en votre faveur", "لغير صالحكم": "en votre défaveur", "الخطوة المقبلة:": "Prochaine étape :", "ⓘ ما معنى ذلك؟": "ⓘ Qu’est-ce que cela signifie ?", "⚠️ حضوركم الشخصي مطلوب في هذه الجلسة — المرجو الحضور قبل الموعد بنصف ساعة مع بطاقة التعريف الوطنية.": "⚠️ Votre présence personnelle est requise à cette audience — merci d’arriver une demi-heure avant, muni(e) de votre CIN.", "✓ لا يلزمكم الحضور في هذه الجلسة، والمكتب ينوب عنكم.": "✓ Votre présence n’est pas nécessaire ; le cabinet vous représente.", "🟡 الملف محجوز للمداولة: أُقفل باب المناقشة، فلا تُقبل مذكرات أو وثائق جديدة إلى حين النطق بالحكم.": "🟡 Dossier en délibéré : les débats sont clos, aucun nouveau mémoire ni document n’est accepté jusqu’au prononcé.", "الملف في المداولة — النطق بالحكم": "Dossier en délibéré — prononcé", "فتح الملف": "Ouverture", "أجل الجواب": "Délai de réponse", "التسوية أو الدعوى": "Règlement ou action", "رفع الدعوى": "Action en justice", "تاريخ التوجيه": "Date d’envoi", "الشكاية": "Plainte", "البحث التمهيدي": "Enquête préliminaire", "قرار النيابة العامة": "Décision du parquet", "التحقيق": "Instruction", "تقديم الطلب": "Dépôt de la demande", "الإجراءات": "Procédure", "صدور الأمر / القرار": "Décision", "تلقي الطلب": "Réception de la demande", "دراسة الملف": "Étude du dossier", "تقديم الاستشارة": "Avis juridique", "استشارة قانونية": "Consultation juridique", "طلبكم قيد الدراسة.": "Votre demande est à l’étude.", "قُدِّمت الاستشارة.": "La consultation a été rendue.", "متابعة تأديبية": "Poursuite disciplinaire", "إذا لم يستجب الطرف الآخر داخل الأجل، سيقترح عليكم المكتب الخطوة الموالية (التسوية أو رفع الدعوى).": "Si la partie adverse ne répond pas dans le délai, le cabinet vous proposera la suite (règlement ou action en justice).", "سنخبركم بمآل الطلب فور صدوره.": "Nous vous informerons de la décision dès qu’elle sera rendue.", "سيتواصل معكم المكتب لتقديم الرأي القانوني.": "Le cabinet vous contactera pour vous donner son avis juridique.", "سنخبركم بموعد كل جلسة وبما يُقترح من حلول.": "Nous vous informerons de chaque séance et des solutions proposées.", "قد يستدعيكم قاضي التحقيق: أخبروا المكتب فور توصلكم بأي استدعاء.": "Le juge d’instruction peut vous convoquer : informez le cabinet dès réception de toute convocation.", "يحتفظ المكتب بنسخة من الملف ووثائقه، ويمكنكم طلبها عند الحاجة.": "Le cabinet conserve une copie du dossier et de ses pièces ; vous pouvez la demander au besoin.", "سنخبركم بكل إجراء تنفيذي جديد، وبتحويل المبالغ المحصلة فور توصل المكتب بها.": "Nous vous informerons de chaque nouvel acte d’exécution et du virement des sommes recouvrées dès leur réception.", "سنخبركم بتاريخ أول جلسة أمام جهة الطعن فور تحديده.": "Nous vous communiquerons la date de la première audience devant la juridiction de recours dès qu’elle sera fixée.", "قد يستدعيكم الخبير لحضور الخبرة: المرجو إخبار المكتب فور توصلكم بأي استدعاء، وإحضار الوثائق المطلوبة.": "L’expert peut vous convoquer : merci d’informer le cabinet dès réception de toute convocation et d’apporter les documents demandés.", "سنخبركم بما يستجد بعد إنجاز الإجراء.": "Nous vous informerons de la suite après l’exécution de la mesure.", "سنخبركم بما راج في الجلسة.": "Nous vous informerons du déroulement de l’audience.", "في انتظار تعيين الملف بأول جلسة، وسنخبركم بتاريخها فور تحديده.": "Dans l’attente de la fixation de la première audience ; nous vous en communiquerons la date.", "سنخبركم بتاريخ الجلسة المقبلة فور تحديده.": "Nous vous communiquerons la date de la prochaine audience dès qu’elle sera fixée.", "سؤال عن هذا الملف": "Question sur ce dossier", "إرسال وثيقة للمكتب": "Envoyer un document au cabinet", "أضف الموعد إلى تقويم هاتفي": "Ajouter à mon agenda", "لائحة الإجراءات": "Actes de procédure", "لائحة الأطراف": "Parties", "لائحة الخبرات": "Expertises", "الملفات المرتبطة": "Dossiers liés", "الوثائق": "Documents", "كشف الحساب": "Relevé de compte", "فتح": "Ouvrir", "تاريخ الإجراء": "Date de l’acte", "نوع الإجراء": "Type d’acte", "القرار": "Décision", "الطرف": "Partie", "الصفة": "Qualité", "الدفاع": "Défense", "أنتم": "Vous", "تاريخ الأمر": "Date de l’ordonnance", "الرقم": "Numéro", "لا توجد إجراءات مسجلة بعد.": "Aucun acte enregistré pour le moment.", "المدعي": "Demandeur", "المدعية": "Demanderesse", "المدعى عليه": "Défendeur", "المدعى عليها": "Défenderesse", "مدعية": "Demanderesse", "مدعي": "Demandeur", "مدعى عليه": "Défendeur", "مشتكية": "Plaignante", "مشتكي": "Plaignant", "الدعوى المرتبطة": "Action liée", "جلسة": "Audience", "مداولة": "Délibéré", "خبرة": "Expertise", "حجز الملف للمداولة": "Mise en délibéré", "الدفعات المسجلة لهذا الملف": "Paiements enregistrés pour ce dossier", "لا توجد دفعات مسجلة لهذا الملف.": "Aucun paiement enregistré pour ce dossier.", "المصاريف المؤداة في الملف": "Frais engagés dans le dossier", "المجموع:": "Total :", "التاريخ": "Date", "البيان": "Libellé", "المبلغ": "Montant", "رقم الوصل": "N° du reçu", "طريقة الأداء": "Mode de paiement", "نقدًا": "Espèces", "نقدا": "Espèces", "تحويل بنكي": "Virement bancaire", "شيك": "Chèque", "يمكنكم تحميل وصل كل دفعة بصيغة PDF والاحتفاظ به.": "Vous pouvez télécharger le reçu de chaque paiement en PDF et le conserver.", "📅 طلب موعد بالمكتب": "📅 Demande de rendez-vous au cabinet", "أوقات الاستقبال:": "Horaires de réception :", "اختاروا اليوم": "Choisissez le jour", "الساعة المفضلة": "Heure souhaitée", "الملف المعني (اختياري)": "Dossier concerné (facultatif)", "— موضوع عام —": "— Sujet général —", "موضوع الموعد (اختياري)": "Objet du rendez-vous (facultatif)", "مثال: الاطلاع على مستجدات الملف، تسليم وثائق…": "Ex. : point sur le dossier, remise de documents…", "سيُرسل طلبكم إلى المكتب عبر واتساب، ويؤكد المكتب الموعد بعد مراجعة جدوله.": "Votre demande sera envoyée au cabinet via WhatsApp ; le cabinet confirmera le rendez-vous selon son agenda.", "إلغاء": "Annuler", "إرسال الطلب عبر واتساب": "Envoyer la demande via WhatsApp", "لا توجد مواعيد متاحة حاليًا. المرجو التواصل مع المكتب مباشرة.": "Aucun créneau disponible pour le moment. Merci de contacter directement le cabinet.", "لإضافة البوابة إلى الشاشة الرئيسية لجهاز iPhone / iPad:": "Pour ajouter l’espace à l’écran d’accueil de l’iPhone / iPad :", "١. افتحوا هذه الصفحة في متصفح": "1. Ouvrez cette page dans", "٢. اضغطوا زر المشاركة": "2. Touchez le bouton Partager", "أسفل الشاشة.": "en bas de l’écran.", "٣. اختاروا «": "3. Choisissez « ", "إضافة إلى الشاشة الرئيسية": "Sur l’écran d’accueil", "» ثم «إضافة».": " », puis « Ajouter ».", "ستظهر أيقونة «ملفاتي» على هاتفكم، وتُفتح البوابة مباشرة كتطبيق.": "Une icône « Mes dossiers » apparaîtra sur votre téléphone et l’espace s’ouvrira comme une application.", "حسنًا": "D’accord", "سنخبركم بكل جديد في المسطرة.": "Nous vous informerons de toute évolution de la procédure.", "دعوى": "Action", "تأجيل للمذكرات": "Renvoi pour mémoires", "تأجيل لحضور الموكل": "Renvoi pour comparution du client", ".": ".", "الوثيقة غير متوفرة حاليًا": "Document indisponible pour le moment", "تعذّر فتح الوثيقة": "Impossible d’ouvrir le document", "إجراء قبل الدعوى": "Acte préalable", "مسطرة خاصة": "Procédure spéciale", "إكراه بدني": "Contrainte par corps", "شكاية": "Plainte", "سُجّلت الدعوى بكتابة ضبط المحكمة، وتنتظر تعيينها بأول جلسة يحددها القاضي.": "Requête : elle a été enregistrée au greffe du tribunal et attend sa fixation à une première audience.", "الجلسة: يوم يُعرض فيه الملف على المحكمة. كثيرًا ما «يُؤجَّل» الملف إلى جلسة أخرى لإتمام إجراء (جواب، استدعاء…)، وهذا أمر عادي.": "Audience : jour où le dossier est examiné par le tribunal. Il est souvent « renvoyé » à une autre audience pour accomplir un acte (réponse, convocation…) ; c’est normal.", "الحكم التمهيدي: قرار تتخذه المحكمة قبل الفصل في النزاع، مثل الأمر بخبرة يُنجزها خبير، ثم يعود الملف للجلسات بعد إيداع تقريره.": "Jugement avant dire droit : mesure ordonnée par le tribunal avant de trancher, par exemple une expertise ; le dossier revient ensuite en audience après le dépôt du rapport.", "المداولة: أنهت المحكمة المناقشة وتدرس الملف لإصدار حكمها في التاريخ المحدد. لا تُقبل خلالها مذكرات أو وثائق جديدة.": "Délibéré : le tribunal a clos les débats et étudie le dossier pour rendre sa décision à la date fixée. Aucun mémoire ni document nouveau n’est accepté.", "صدور الحكم: بعد صدوره يُبلَّغ للأطراف، ويبدأ من تاريخ التبليغ أجل الطعن (استئناف أو نقض). إن لم يُطعن فيه داخل الأجل يصير نهائيًا قابلًا للتنفيذ.": "Décision : après son prononcé, elle est notifiée aux parties ; le délai de recours (appel ou cassation) court à partir de la notification. Sans recours dans le délai, elle devient définitive et exécutoire.", "الطعن: يُعرض الملف من جديد على محكمة أعلى (الاستئناف أو النقض) لمراجعة الحكم.": "Recours : le dossier est soumis à une juridiction supérieure (appel ou cassation) pour réexamen de la décision.", "التنفيذ: إلزام الطرف المحكوم عليه بما قضى به الحكم، عن طريق مفوض قضائي أو كتابة الضبط، ثم تحويل المبالغ المحصلة إلى حسابكم عبر حساب الهيئة.": "Exécution : contraindre la partie condamnée à exécuter la décision, par un commissaire de justice ou le greffe, puis virer les sommes recouvrées sur votre compte via le compte du cabinet.", "انتهى الملف: لم تعد فيه إجراءات جارية، ويحتفظ المكتب بنسخة منه.": "Dossier clôturé : aucune procédure n’est plus en cours ; le cabinet en conserve une copie.", "الملف رائج أمام المحكمة، وسيُحدَّد تاريخ جلسته المقبلة قريبًا.": "Le dossier est en cours devant le tribunal ; la date de sa prochaine audience sera bientôt fixée."};
+  const FR_PRE = [["· قبل ", "· avant le "], ["قبل ", "avant le "], ["أوقات الاستقبال: ", "Horaires : "], ["الأستاذ ", "Maître "], ["المجموع: ", "Total : "], ["جلسات ", "Séances : "], ["توجيه ", "Envoi : "], ["إجراء قبل الدعوى — ", "Acte préalable — "], ["مرحلة ما قبل المحاكمة — ", "Phase pré-judiciaire — "], ["آلية بديلة لحل النزاع — ", "Mode alternatif — "], ["مسطرة الإكراه البدني", "Contrainte par corps"], ["مسطرة خاصة — ", "Procédure spéciale — "], ["المسطرة أمام ", "Procédure devant "], ["← أُجّلت إلى ", "← Renvoyé au "], ["ملف تبليغ", "Dossier de notification "], ["ملف تنفيذ", "Dossier d’exécution "], ["وصل-", "recu-"], ["التأجيل ", "Renvoi : "], ["مدني — ", "Civil — "], ["زجري — ", "Pénal — "], ["تجاري — ", "Commercial — "], ["إداري — ", "Administratif — "]];
+  const FR_RX = [
+    [/^(\d+) ملفات$/, m=> m[1] + ' dossiers'],
+    [/^(.*) — وصل عدد$/, m=> m[1] + ' — reçu n°'],
+    [/^ملف تأديبي$/, ()=> 'Dossier disciplinaire'],
+    [/^ملفات \((\d+) جارية\)$/, m=> 'dossiers (' + m[1] + ' en cours)'],
+    [/^مرحبًا، (.*)$/, m=> 'Bonjour, ' + m[1]],
+    [/^(\d+) ملفات — اختر ملفًا لعرضه$/, m=> m[1] + ' dossiers — choisissez un dossier à afficher'],
+    [/^🆕 تم تحديث (ملف واحد|(\d+) ملفات) منذ زيارتكم الأخيرة — تجدونه مميَّزًا بعلامة «جديد».$/, m=> '🆕 ' + (m[2] ? m[2] + ' dossiers ont été mis à jour' : 'Un dossier a été mis à jour') + ' depuis votre dernière visite — signalé par « Nouveau ».'],
+    [/^الأستاذ (.*?)(?: — محامٍ ب(.*))?$/, m=> 'Maître ' + m[1] + (m[2] ? ' — avocat au ' + m[2] : '')],
+    [/^بوابة موكلي (.*)$/, m=> 'Espace client — ' + m[1]],
+    [/^صدر (الحكم|القرار|الأمر)$/, m=> ({ 'الحكم':'Jugement rendu', 'القرار':'Arrêt rendu', 'الأمر':'Ordonnance rendue' })[m[1]]],
+    [/^صدور (الحكم|القرار|الأمر)$/, m=> ({ 'الحكم':'Jugement', 'القرار':'Arrêt', 'الأمر':'Ordonnance' })[m[1]]],
+    [/^تاريخ (الحكم|القرار|الأمر)$/, m=> 'Date ' + ({ 'الحكم':'du jugement', 'القرار':'de l’arrêt', 'الأمر':'de l’ordonnance' })[m[1]]],
+    [/^النطق ب(الحكم|القرار|الأمر)$/, m=> 'Prononcé ' + ({ 'الحكم':'du jugement', 'القرار':'de l’arrêt', 'الأمر':'de l’ordonnance' })[m[1]]],
+    [/^مآل (الحكم|القرار|الأمر)( المطعون فيه)?$/, m=> 'Sens ' + ({ 'الحكم':'du jugement', 'القرار':'de l’arrêt', 'الأمر':'de l’ordonnance' })[m[1]] + (m[2] ? ' attaqué' : '')],
+    [/^منطوق (الحكم|القرار|الأمر) باختصار$/, m=> 'Dispositif ' + ({ 'الحكم':'du jugement', 'القرار':'de l’arrêt', 'الأمر':'de l’ordonnance' })[m[1]] + ' (résumé)'],
+    [/^آخر أجل ل(.*)$/, m=> 'Dernier délai : ' + (FR_DICT[m[1]] || m[1])],
+    [/^التأجيل (.*)$/, m=> 'Renvoi : ' + m[1]],
+    [/^ملف (.*)$/, m=> 'Dossier ' + m[1]]
+  ];
+  const FR_WD = { 'الأحد':'dimanche','الإثنين':'lundi','الاثنين':'lundi','الثلاثاء':'mardi','الأربعاء':'mercredi','الخميس':'jeudi','الجمعة':'vendredi','السبت':'samedi' };
+  function frBits(t){
+    AR_MONTHS.forEach((m,i)=>{ t = t.split(m).join(MONTHS_FR[i]); });
+    for(const k in FR_WD) t = t.split(k).join(FR_WD[k]);
+    return t.replace(/درهم/g, 'DH');
+  }
+  function frStr(raw){
+    if(!raw || !/[\u0600-\u06FF\u200e\u200f\u061c]/.test(raw)) return raw;
+    raw = raw.replace(/[\u200e\u200f\u061c]/g, '');
+    const lead = raw.match(/^\s*/)[0], trail = raw.match(/\s*$/)[0];
+    const t = raw.replace(/\s+/g, ' ').trim();
+    let out = FR_DICT[t];
+    if(out == null){ for(const [re, f] of FR_RX){ const m = t.match(re); if(m){ const r = f(m); if(r){ out = frBits(r); break; } } } }
+    if(out == null){ for(const [a, b] of FR_PRE){ if(t.startsWith(a)){ out = b + frBits(t.slice(a.length)); break; } } }
+    if(out == null){ const m = t.match(/^(.*?)(\s*:)$/); if(m && FR_DICT[m[1]]) out = FR_DICT[m[1]] + ' :'; }
+    if(out == null) out = frBits(t);
+    return lead + out + trail;
+  }
+  const TRN = [];
+  const SAVED_TITLE = { v: null };
+  function trAll(){
+    for(let i = TRN.length - 1; i >= 0; i--){ const x = TRN[i]; if(x.length === 2) x[0].nodeValue = x[1]; else x[0].setAttribute(x[1], x[2]); }
+    TRN.length = 0;
+    const fr = FRL();
+    document.documentElement.lang = fr ? 'fr' : 'ar'; document.documentElement.dir = fr ? 'ltr' : 'rtl';
+    const tl = $('t-lang'); if(tl){ tl.textContent = fr ? 'ع' : 'FR'; tl.title = fr ? 'العربية' : 'Français'; }
+    if(SAVED_TITLE.v == null) SAVED_TITLE.v = document.title;
+    if(!fr){ document.title = SAVED_TITLE.v || document.title; SAVED_TITLE.v = null; return; }
+    document.title = office.name ? 'Espace client — ' + office.name : 'Espace client';
+    const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n=> /^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+    const nodes = []; while(w.nextNode()) nodes.push(w.currentNode);
+    for(const n of nodes){ const o = n.nodeValue; if(!/[\u0600-\u06FF\u200e\u200f\u061c]/.test(o)) continue; if(n.parentNode.closest && n.parentNode.closest('[data-keep]')) continue; const v = frStr(o); if(v !== o){ TRN.push([n, o]); n.nodeValue = v; } }
+    document.querySelectorAll('[placeholder],[title],[aria-label]').forEach(el=> ['placeholder','title','aria-label'].forEach(a=>{
+      const o = el.getAttribute(a); if(!o || !/[\u0600-\u06FF]/.test(o)) return; const v = frStr(o); if(v !== o){ TRN.push([el, a, o]); el.setAttribute(a, v); }
+    }));
   }
 
   function sendDoc(c){
@@ -695,19 +1023,28 @@
 
   $('lf').addEventListener('submit', e=>{ e.preventDefault(); login(norm($('pid').value), $('psec').value.trim(), $('remember').checked); });
   $('showpass').addEventListener('change', ()=>{ $('psec').type = $('showpass').checked ? 'text' : 'password'; });
-  $('logout').addEventListener('click', ()=>{
-    try{ localStorage.removeItem('portalCreds'); }catch(e){}
-    creds = null; $('view').innerHTML = ''; $('view').classList.add('hidden');
+  function doLogout(idle){
+    if(!idle){ try{ localStorage.removeItem('portalCreds'); }catch(e){} }
+    creds = null; lastData = null; $('view').innerHTML = ''; $('view').classList.add('hidden');
     $('login').classList.remove('hidden'); $('logout').classList.add('hidden');
     $('psec').value = '';
-  });
+    document.querySelectorAll('.pm-ov').forEach(x=> x.remove());
+    if(idle){ $('idle-msg').classList.remove('hidden'); let sv = null; try{ sv = JSON.parse(localStorage.getItem('portalCreds') || 'null'); }catch(e){} if(sv && sv.id && sv.secret){ $('pid').value = sv.id; $('psec').value = sv.secret; $('remember').checked = true; } }
+    trAll(); syncInstall();
+  }
+  $('logout').addEventListener('click', ()=> doLogout(false));
 
   // إزالة أي Service Worker قديم على هذا الرابط (مثلًا إن رُفع التطبيق هنا بالخطأ سابقًا)
   try{
     // فقط ما يخصّ مسار البوابة نفسه — لا نلمس تطبيقًا أو موقعًا آخر على نفس النطاق
-    if('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(rs=> rs.forEach(r=>{
-      if(r.scope === location.origin + BASE) r.unregister();
-    }));
+    if('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(async rs=>{
+      for(const r of rs){
+        const w = r.active || r.waiting || r.installing;
+        if(r.scope === location.origin + BASE && !(w && /portal-sw\.js/.test(w.scriptURL))) await r.unregister();
+      }
+      // v78: عامل خدمة خاص بالبوابة (لا يخزّن أي معطيات) — يسمح بتثبيتها كتطبيق على الهاتف
+      try{ const h = await fetch(BASE + 'portal-sw.js', { method:'HEAD', cache:'no-store' }); if(h.ok) await navigator.serviceWorker.register(BASE + 'portal-sw.js', { scope: BASE }); }catch(e){}
+    });
   }catch(e){}
   (async function init(){
     await loadOffice();
