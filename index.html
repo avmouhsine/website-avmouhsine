@@ -302,9 +302,24 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
   .q:last-child,.cm:last-child{border-bottom:none}
   footer .cols{grid-template-columns:1fr}
 }
+
+/* مفاتيح مؤقتة: إخفاء فضاء الموكلين وطلب الاستشارة إلى حين الإذن */
+body:not(.portal-on) .x-portal{display:none!important}
+body:not(.consult-on) .x-consult{display:none!important}
+body:not(.consult-on) .contact{grid-template-columns:1fr;max-width:760px}
+body:not(.portal-on):not(.consult-on) .quick-grid{grid-template-columns:repeat(2,1fr)}
+body:not(.portal-on):not(.consult-on) .q{border-bottom:none!important}
+body:not(.portal-on):not(.consult-on) .q:nth-child(3){border-left:1px solid var(--rule)}
+@media (max-width:640px){ body:not(.portal-on):not(.consult-on) .quick-grid{grid-template-columns:1fr} body:not(.portal-on):not(.consult-on) .q:nth-child(3){border-left:none;border-bottom:1px solid var(--rule)!important} }
 </style>
 </head>
-<body>
+<!--
+  مفاتيح مؤقتة (طلب الإذن من السيد النقيب — المادة 45 من القانون 66.23):
+  • لإرجاع «فضاء الموكلين / متابعة قضيتي» أضف portal-on إلى class أدناه
+  • لإرجاع «طلب استشارة» واستمارتها أضف consult-on
+  مثال: <body class="portal-on">
+-->
+<body class="">
 <a class="skip" href="#main">الانتقال إلى المحتوى</a>
 
 <!-- الشريط العلوي -->
@@ -314,7 +329,7 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
     <div class="tb-links">
       <a href="tel:+212640150658"><span class="ltr">+212 640-150658</span></a>
       <a href="mailto:avmouhsineelmakhfi@gmail.com">البريد الإلكتروني</a>
-      <a class="tb-portal" href="/clients/">فضاء الموكلين</a>
+      <a class="tb-portal x-portal" href="/clients/">فضاء الموكلين</a>
     </div>
   </div>
 </div>
@@ -332,8 +347,8 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
       <span class="t3">صفرو<br>هيئة المحامين بفاس</span>
     </a>
     <div class="ident-actions">
-      <a class="btn btn-ghost" href="#contact">طلب استشارة</a>
-      <a class="btn btn-navy" href="/clients/">
+      <a class="btn btn-ghost x-consult" href="#contact">طلب استشارة</a>
+      <a class="btn btn-navy x-portal" href="/clients/">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
         متابعة قضيتي
       </a>
@@ -350,7 +365,7 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
       <li><a href="#top" class="active">الرئيسية</a></li>
       <li><a href="#about">المكتب</a></li>
       <li><a href="#domains">مجالات الممارسة</a></li>
-      <li><a href="#portal">فضاء الموكلين</a></li>
+      <li class="x-portal"><a href="#portal">فضاء الموكلين</a></li>
       <li><a href="#commitments">التزاماتنا</a></li>
       <li><a href="#links">روابط مفيدة</a></li>
       <li><a href="#contact">التواصل</a></li>
@@ -373,7 +388,7 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>ابتداءً من الساعة الرابعة بعد الزوال</li>
       </ul>
       <div class="acts">
-        <a class="btn btn-brass" href="#contact">طلب استشارة قانونية</a>
+        <a class="btn btn-brass x-consult" href="#contact">طلب استشارة قانونية</a>
         <a class="btn btn-ghost" href="#domains">مجالات الممارسة</a>
       </div>
     </div>
@@ -409,11 +424,11 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
 <div class="quick">
   <div class="wrap">
     <nav class="quick-grid" aria-label="الولوج السريع">
-      <a class="q primary" href="/clients/">
+      <a class="q primary x-portal" href="/clients/">
         <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
         <span><b>متابعة قضيتي</b><span>الجلسات والإجراءات والوثائق، باسمكم وكلمة السر</span></span>
       </a>
-      <a class="q" href="#contact">
+      <a class="q x-consult" href="#contact">
         <span class="qi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span>
         <span><b>طلب استشارة</b><span>أرسلوا طلبكم مباشرة عبر واتساب</span></span>
       </a>
@@ -471,7 +486,7 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
         <dt>نطاق الترافع</dt><dd>جميع محاكم المملكة</dd>
         <dt>الخدمات</dt><dd>الترافع، الاستشارة، صياغة العقود</dd>
         <dt>الاستقبال</dt><dd>بموعد — من الاثنين إلى الخميس، ابتداءً من 16:00</dd>
-        <dt>تتبع الملفات</dt><dd>فضاء إلكتروني للموكلين</dd>
+        <dt class="x-portal">تتبع الملفات</dt><dd class="x-portal">فضاء إلكتروني للموكلين</dd>
       </dl>
     </aside>
   </div>
@@ -530,7 +545,7 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
 </section>
 
 <!-- فضاء الموكلين -->
-<section class="block" id="portal">
+<section class="block x-portal" id="portal">
   <div class="wrap portal">
     <div>
       <div class="sec-title"><h2>فضاء الموكلين</h2></div>
@@ -632,8 +647,8 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
 <!-- التواصل -->
 <section class="block alt" id="contact">
   <div class="wrap">
-    <div class="sec-title"><h2>التواصل وطلب الاستشارة</h2></div>
-    <p class="sec-intro">يُستقبل الموكلون بموعد، من الاثنين إلى الخميس ابتداءً من الساعة الرابعة بعد الزوال. اتصلوا بالمكتب لتحديد موعد، أو أرسلوا طلبكم عبر الاستمارة.</p>
+    <div class="sec-title"><h2>التواصل<span class="x-consult"> وطلب الاستشارة</span></h2></div>
+    <p class="sec-intro">يُستقبل الموكلون بموعد، من الاثنين إلى الخميس ابتداءً من الساعة الرابعة بعد الزوال. اتصلوا بالمكتب لتحديد موعد<span class="x-consult">، أو أرسلوا طلبكم عبر الاستمارة</span>.</p>
     <div class="contact">
       <div class="ctable">
         <div class="crow">
@@ -653,7 +668,7 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
           <div><b>الاستقبال</b><p>بموعد — من الاثنين إلى الخميس<br>ابتداءً من الساعة الرابعة بعد الزوال (16:00)</p></div>
         </div>
       </div>
-      <form class="form" onsubmit="sendContactForm(event)">
+      <form class="form x-consult" onsubmit="sendContactForm(event)">
         <h3>استمارة طلب استشارة</h3>
         <p class="sub">يُفتح واتساب برسالة جاهزة إلى المكتب، فتضغطون «إرسال».</p>
         <div class="row2">
@@ -688,9 +703,9 @@ footer .legal{border-top:1px solid rgba(255,255,255,.12);padding:16px 0;font-siz
       <ul>
         <li><a href="#about">المكتب</a></li>
         <li><a href="#domains">مجالات الممارسة</a></li>
-        <li><a href="/clients/">فضاء الموكلين</a></li>
+        <li class="x-portal"><a href="/clients/">فضاء الموكلين</a></li>
         <li><a href="#links">روابط مؤسساتية</a></li>
-        <li><a href="#contact">طلب استشارة</a></li>
+        <li class="x-consult"><a href="#contact">طلب استشارة</a></li>
       </ul>
     </div>
     <div>
