@@ -301,6 +301,40 @@
     .tbl-wrap{border:0;}
   }
 
+
+  /* v107: نمط بوابة محاكم */
+  .fc-k{font-size:15px;color:#0f2f57;border-bottom:3px solid #f2c14e;padding-bottom:4px;}
+  .fc-head h3{font-size:15px;color:#4a5a6b;font-weight:700;margin-top:4px;}
+  .fc-grid{border:1px solid #9fb0c3;border-radius:2px;}
+  .fc-cell{min-height:50px;border-bottom:1px solid #fff;}
+  .fc-cell:nth-child(odd){border-inline-end:2px solid #fff;}
+  .fc-l{background:#103a67;font-size:13px;font-weight:700;padding:12px 14px;}
+  .fc-v{background:#e9ecf0;font-size:14px;font-weight:600;color:#1d2f44;padding:12px 14px;}
+  .fc-v .nil,.ptbl .nil{display:inline-block;width:46px;height:2px;background:#f2c14e;vertical-align:middle;}
+  .ptabs{margin:22px 20px 0;border-bottom:1px solid #d5dce4;gap:6px;}
+  .ptabs button{font-size:14.5px;color:#4f5f70;padding:10px 12px 12px;border-bottom-width:3px;}
+  .ptabs button.on{color:#1a6fc9;border-bottom-color:#1a6fc9;}
+  .ppanel{padding:16px 20px 0;}
+  .tbl-wrap{border:0;border-radius:0;overflow:visible;}
+  .ptbl{border-collapse:separate;border-spacing:0 3px;font-size:13.5px;}
+  .ptbl thead th{background:#103a67;color:#fff;font-weight:700;padding:13px 10px;border:0;border-inline-start:1px solid #24507f;}
+  .ptbl thead th:first-child{border-start-start-radius:10px;border-end-start-radius:10px;border-inline-start:0;}
+  .ptbl thead th:last-child{border-start-end-radius:10px;border-end-end-radius:10px;}
+  .ptbl td{background:#e9ecf0;border:0;border-inline-start:2px solid #fff;padding:14px 10px;color:#1d2f44;font-weight:600;}
+  .ptbl td:first-child{border-inline-start:0;}
+  .ptbl tr.up td{background:#f4f6f8;}
+  .ptbl .upk{font-style:normal;font-size:10.5px;font-weight:800;color:#8a5a12;background:#fdf1d6;border-radius:999px;padding:1px 8px;margin-inline-start:4px;}
+  .ptbl tr.us td{background:#e6f1ea;}
+  .fc-sit{margin:22px 20px 0;} .fc-sit .pst{margin:10px 0 0;}
+  @media (max-width:760px){
+    .ptabs{margin:16px 12px 0;} .ppanel{padding:12px 12px 0;} .fc-sit{margin:18px 12px 0;}
+    .fc-cell:nth-child(odd){border-inline-end:0;}
+    .ptbl{border-spacing:0;} .ptbl tr{border-bottom:0;margin-bottom:10px;border-radius:10px;overflow:hidden;border:1px solid #d5dce4;}
+    .ptbl td{border-inline-start:0;border-top:1px solid #fff;padding:10px 12px;}
+    .ptbl td::before{color:#103a67;}
+    .ptbl tr td:first-child{background:#103a67;color:#fff;} .ptbl tr td:first-child::before{color:#c9d6e4;}
+  }
+
   /* v76: أزرار التواصل في الأعلى — البطاقة بكامل العرض */
   .cbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow);padding:10px 14px;margin:0 0 18px;}
   .cbar-t{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--ink);font-size:15px;}
@@ -661,36 +695,43 @@
         return `<div class="doc"><div class="fi ${pdf?'':'img'}">${ic(pdf?'doc':'img')}</div><div class="nm">${esc(x.name)}<small>${dt(x.date)}</small></div><button class="btn brass sm" data-doc="${ci}:${di}">${ic('down')} فتح</button></div>`;
       }).join('')));
       const K = c.card;
-      const kv = K && K.kv ? K.kv.map(([k,v])=> [esc(k), esc(v)]) : K ? [['المحكمة', esc(K.court||'—')], ['رقم الملف بالمحكمة', `<span class="ltr">${esc(K.number||'—')}</span>`],
+      const NIL = '<span class="nil"></span>';
+      const kv = K && K.kv ? K.kv.map(([k,v])=> [esc(k), v && v!=='—' ? esc(v) : NIL]) : K ? [['المحكمة', esc(K.court||'—')], ['رقم الملف بالمحكمة', `<span class="ltr">${esc(K.number||'—')}</span>`],
         ['نوع الملف', esc(K.kind||'—')], ['الرقم الوطني للملف', K.platformNo ? `<span class="ltr">${esc(K.platformNo)}</span>` : '—'],
         ['المرحلة', esc(K.stageName||'—')], ['القاضي / المستشار المقرر', esc(K.judge||'—')],
         ['الموضوع', esc(K.subject||'—')], ['تاريخ التسجيل', K.regDate ? dt(K.regDate) : '—'],
         ['آخر حكم / قرار', esc(K.lastVerdict||'—')], ['تاريخ آخر حكم / قرار', K.lastVerdictDate ? dt(K.lastVerdictDate) : '—'],
         ['صفتكم في الملف', esc(c.capacity||'—')], ['مرجع المكتب', c.ref ? `<span class="ltr">${esc(c.ref)}</span>` : '—']] : [];
+      kv.forEach(r=>{ if(r[1]==='—' || r[1]==='') r[1] = NIL; });
       const tabs = [];
       if(K){
-        tabs.push(['proc', 'لائحة الإجراءات', K.timeline.length, K.timeline.length ? `<div class="tbl-wrap"><table class="ptbl"><thead><tr><th>تاريخ الإجراء</th><th>نوع الإجراء</th><th>القرار</th><th>الجلسة المقبلة</th></tr></thead><tbody>${K.timeline.map((t,ti)=>`<tr${ti===0 ? ' class="last"' : ''}><td data-l="تاريخ الإجراء"><span class="ltr">${esc(fmtShort(t.date))}</span></td><td data-l="نوع الإجراء">${esc(t.action||'—')}</td><td data-l="القرار">${esc(t.decision||'—')}</td><td data-l="الجلسة المقبلة">${t.next ? `<span class="ltr">${esc(fmtShort(t.next))}${t.time ? ' ' + esc(t.time) : ''}</span>` : '<span class="nil"></span>'}</td></tr>`).join('')}</tbody></table></div>` : '<p class="empty-t">لا توجد إجراءات مسجلة بعد.</p>']);
-        tabs.push(['parties', 'لائحة الأطراف', K.parties.length, `<div class="tbl-wrap"><table class="ptbl"><thead><tr><th>الطرف</th><th>الصفة</th><th>الدفاع</th></tr></thead><tbody>${K.parties.map(x=>`<tr class="${x.side}"><td data-l="الطرف"><b>${esc(x.name)}</b>${x.side==='us' ? ' <span class="you">أنتم</span>' : ''}</td><td data-l="الصفة">${esc(x.role||'—')}</td><td data-l="الدفاع">${esc(x.lawyer||'—')}</td></tr>`).join('')}</tbody></table></div>`]);
-        if(K.experts.length) tabs.push(['exp', 'لائحة الخبرات', K.experts.length, `<div class="tbl-wrap"><table class="ptbl"><thead><tr><th>تاريخ الأمر</th><th>الإجراء</th><th>الخبير / المكلف</th><th>أجل الإنجاز</th><th>الحالة</th></tr></thead><tbody>${K.experts.map(x=>`<tr><td data-l="تاريخ الأمر"><span class="ltr">${esc(fmtShort(x.date)||'—')}</span></td><td data-l="الإجراء">${esc(x.measure||'—')}</td><td data-l="الخبير">${esc(x.expert||'—')}</td><td data-l="أجل الإنجاز">${x.due ? `<span class="ltr">${esc(fmtShort(x.due))}</span>` : '—'}</td><td data-l="الحالة">${x.done ? 'منجز' : '<b class="pend">جارٍ</b>'}</td></tr>`).join('')}</tbody></table></div>`]);
-        if(K.linked.length) tabs.push(['linked', 'الملفات المرتبطة', K.linked.length, `<div class="tbl-wrap"><table class="ptbl"><thead><tr><th>نوع الملف</th><th>الرقم</th><th>الجهة</th><th>الحالة</th></tr></thead><tbody>${K.linked.map(x=>`<tr><td data-l="نوع الملف">${esc(x.rel)}</td><td data-l="الرقم"><span class="ltr">${esc(x.number||'—')}</span></td><td data-l="الجهة">${esc(x.court||'—')}</td><td data-l="الحالة">${esc(x.status||'—')}</td></tr>`).join('')}</tbody></table></div>`]);
-        if((c.docs||[]).length) tabs.push(['docs', 'الوثائق', c.docs.length, c.docs.map((x,di)=>{ const pdf = x.type === 'application/pdf';
+        const nxTxt = t=> t.next ? `<span class="nxv"><span class="ltr">${esc(fmtShort(t.next))}</span>${t.time ? ` على الساعة <span class="ltr">${esc(t.time)}</span>` : ''}${t.room ? ` بالقاعة ${esc(/قاعة/.test(t.room) ? t.room : 'رقم ' + t.room)}` : ''}</span>` : NIL;
+        const today = new Date(); const tISO = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+        const up = K.timeline[0] && K.timeline[0].next && K.timeline[0].next >= tISO ? K.timeline[0] : null;
+        const procRows = (up ? `<tr class="up"><td data-l="تاريخ الإجراء"><span class="ltr">${esc(fmtShort(up.next))}</span> <em class="upk">مقبلة</em></td><td data-l="نوع الإجراء">${NIL}</td><td data-l="القرار">${NIL}</td><td data-l="تاريخ وقاعة الجلسة المقبلة">${NIL}</td></tr>` : '')
+          + K.timeline.map(t=>`<tr><td data-l="تاريخ الإجراء"><span class="ltr">${esc(fmtShort(t.date))}</span></td><td data-l="نوع الإجراء">${t.action ? esc(t.action) : NIL}</td><td data-l="القرار">${t.decision ? esc(t.decision) : NIL}</td><td data-l="تاريخ وقاعة الجلسة المقبلة">${nxTxt(t)}</td></tr>`).join('');
+        tabs.push(['proc', 'لائحة الإجراءات', 0, K.timeline.length ? `<div class="tbl-wrap"><table class="ptbl mh"><thead><tr><th>تاريخ الإجراء</th><th>نوع الإجراء</th><th>القرار</th><th>تاريخ وقاعة الجلسة المقبلة</th></tr></thead><tbody>${procRows}</tbody></table></div>` : '<p class="empty-t">لا توجد إجراءات مسجلة بعد.</p>']);
+        tabs.push(['parties', 'لائحة الأطراف', 0, `<div class="tbl-wrap"><table class="ptbl"><thead><tr><th>الطرف</th><th>الصفة</th><th>الدفاع</th></tr></thead><tbody>${K.parties.map(x=>`<tr class="${x.side}"><td data-l="الطرف"><b>${esc(x.name)}</b>${x.side==='us' ? ' <span class="you">أنتم</span>' : ''}</td><td data-l="الصفة">${esc(x.role||'—')}</td><td data-l="الدفاع">${x.lawyer ? esc(x.lawyer) : NIL}</td></tr>`).join('')}</tbody></table></div>`]);
+        if(K.experts.length) tabs.push(['exp', 'لائحة الخبرات', 0, `<div class="tbl-wrap"><table class="ptbl"><thead><tr><th>تاريخ الأمر</th><th>الإجراء</th><th>الخبير / المكلف</th><th>أجل الإنجاز</th><th>الحالة</th></tr></thead><tbody>${K.experts.map(x=>`<tr><td data-l="تاريخ الأمر"><span class="ltr">${esc(fmtShort(x.date)||'—')}</span></td><td data-l="الإجراء">${esc(x.measure||'—')}</td><td data-l="الخبير">${esc(x.expert||'—')}</td><td data-l="أجل الإنجاز">${x.due ? `<span class="ltr">${esc(fmtShort(x.due))}</span>` : '—'}</td><td data-l="الحالة">${x.done ? 'منجز' : '<b class="pend">جارٍ</b>'}</td></tr>`).join('')}</tbody></table></div>`]);
+        if(K.linked.length) tabs.push(['linked', 'الملفات المرتبطة (ابتدائي/استئنافي)', 0, `<div class="tbl-wrap"><table class="ptbl"><thead><tr><th>نوع الملف</th><th>الرقم</th><th>الجهة</th><th>الحالة</th></tr></thead><tbody>${K.linked.map(x=>`<tr><td data-l="نوع الملف">${esc(x.rel)}</td><td data-l="الرقم"><span class="ltr">${esc(x.number||'—')}</span></td><td data-l="الجهة">${esc(x.court||'—')}</td><td data-l="الحالة">${esc(x.status||'—')}</td></tr>`).join('')}</tbody></table></div>`]);
+        if((c.docs||[]).length) tabs.push(['docs', 'الوثائق', 0, c.docs.map((x,di)=>{ const pdf = x.type === 'application/pdf';
           return `<div class="doc"><div class="fi ${pdf?'':'img'}">${ic(pdf?'doc':'img')}</div><div class="nm">${esc(x.name)}<small>${dt(x.date)}</small></div><button class="btn brass sm" data-doc="${ci}:${di}">${ic('down')} فتح</button></div>`; }).join('')]);
         if(c.stmt || c.fees) tabs.push(['stmt', 'كشف الحساب', 0, stmtHtml(c, d)]);
       }
       caseCards.push({ c, ci, html: K ? `<article class="case fc${c._new ? ' is-new' : ''}" data-case="${ci}">
         <div class="fc-head">
-          <div><span class="fc-k">بطاقة الملف</span><h3>${esc(c.title || 'ملف')}</h3></div>
+          <div><span class="fc-k">بطاقة الملف :</span><h3>${esc(c.title || 'ملف')}</h3></div>
           <div class="fc-badges">${c._new ? '<span class="badge new">🆕 جديد</span>' : ''}<span class="badge ${closed || (c.ph && c.ph.k==='closed') ? 'done' : ''}">${esc(c.ph ? c.ph.label : (c.status || 'جارية'))}</span></div>
         </div>
         <div class="fc-grid">${kv.map(([k,v])=>`<div class="fc-cell"><span class="fc-l">${k}</span><span class="fc-v">${v}</span></div>`).join('')}</div>
-        ${pst}
+        <div class="ptabs" role="tablist">${tabs.map(([k,l,n],i)=>`<button type="button" class="${i===0 ? 'on' : ''}" data-ptab="${k}">${esc(l)}${n ? ` <span>${n}</span>` : ''}</button>`).join('')}</div>
+        ${tabs.map(([k,,,body],i)=>`<div class="ppanel${i===0 ? ' on' : ''}" data-ppanel="${k}">${body}</div>`).join('')}
+        ${pst ? `<div class="fc-sit"><span class="fc-k">وضعية الملف :</span>${pst}</div>` : ''}
         <div class="case-acts">
           ${office.whatsapp ? `<a class="btn line sm" target="_blank" rel="noopener" href="${esc(waOffice('سؤال بخصوص الملف عدد ' + (c.number || c.title || '') + ':\n'))}">${ic('chat')} سؤال عن هذا الملف</a>` : ''}
           <button class="btn line sm" data-send-doc="${ci}">${ic('doc')} إرسال وثيقة للمكتب</button>
           ${icsFor(c) ? `<button class="btn line sm" data-ics="${ci}">${ic('cal')} أضف الموعد إلى تقويم هاتفي</button>` : ''}
         </div>
-        <div class="ptabs" role="tablist">${tabs.map(([k,l,n],i)=>`<button type="button" class="${i===0 ? 'on' : ''}" data-ptab="${k}">${esc(l)}${n ? ` <span>${n}</span>` : ''}</button>`).join('')}</div>
-        ${tabs.map(([k,,,body],i)=>`<div class="ppanel${i===0 ? ' on' : ''}" data-ppanel="${k}">${body}</div>`).join('')}
       </article>` : `<article class="case${c._new ? ' is-new' : ''}" data-case="${ci}">
         <div class="case-hd">
           <div class="ic">${ic('scale')}</div>
