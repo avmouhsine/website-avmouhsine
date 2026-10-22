@@ -372,6 +372,7 @@
   .nws-note{margin-top:12px;background:#f3f7fc;border:1px solid #dbe4ee;border-inline-start:4px solid #103a67;border-radius:10px;padding:10px 14px;}
   .nws-note small{font-weight:800;color:#103a67;font-size:12px;} .nws-note p{margin:4px 0 0;font-size:15px;line-height:1.9;color:#1d2f44;white-space:pre-wrap;}
   .fc-vd{margin:12px 0 4px;}
+  .susp-wrap{padding:10px 16px;} .susp-box{max-width:620px;margin:40px auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px 26px;text-align:center;box-shadow:var(--shadow);} .susp-ic{font-size:44px;} .susp-box h2{margin:8px 0 14px;font-size:22px;} .susp-box p{color:#33475b;line-height:1.9;margin:0 0 10px;} .susp-acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0;} .susp-fr{font-size:13px;color:#6b7a8a;text-align:left;border-top:1px dashed var(--border);padding-top:12px;}
   .nws-tl{margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);} .nws-tl > small{display:block;font-size:12px;font-weight:800;color:#103a67;margin-bottom:8px;} .nws-tl .pst-steps{margin:0;}
   .nws-todo{margin-top:12px;border:2px solid #f2c14e;border-radius:10px;padding:8px 14px 4px;}
   .nws-todo h4{margin:2px 0 4px;font-size:14.5px;color:var(--ink);} .nws-ok{margin:4px 0 8px;color:#2f6a52;font-weight:700;font-size:13.5px;}
@@ -579,9 +580,25 @@
     $('foot').innerHTML = [office.name, office.address, office.phone ? `<span class="ltr">${esc(office.phone)}</span>` : '', office.email].filter(Boolean).map(x=> `<span>${x.startsWith('<') ? x : esc(x)}</span>`).join('')
       + `<span><button type="button" class="linkbtn" data-privacy>الخصوصية والسر المهني</button></span>`;
     trAll();
+    if(office.suspended) showSuspended();
+  }
+  // v131: البوابة موقوفة مؤقتًا من طرف المكتب
+  function showSuspended(){
+    try{ localStorage.removeItem('portalCreds'); }catch(e){}
+    creds = null; const v = $('view'); if(v){ v.classList.add('hidden'); v.innerHTML = ''; }
+    const lo = $('logout'); if(lo) lo.classList.add('hidden');
+    const wa = office.whatsapp ? `<a class="btn green" href="https://wa.me/${esc(office.whatsapp)}" target="_blank" rel="noopener">مراسلة المكتب عبر واتساب</a>` : '';
+    const tel = office.phone ? `<a class="btn line" href="tel:${esc(String(office.phone).replace(/\s/g,''))}">اتصال بالمكتب <span class="ltr">${esc(office.phone)}</span></a>` : '';
+    $('login').innerHTML = `<div class="susp-box"><div class="susp-ic">⏸️</div><h2>بوابة الموكلين متوقفة مؤقتًا</h2>
+      <p>توقفت هذه الخدمة مؤقتًا إلى حين استكمال الإجراءات المتعلقة بحماية المعطيات ذات الطابع الشخصي (القانون رقم 09.08)، حرصًا على سرية ملفاتكم.</p>
+      <p>للاطلاع على مستجدات ملفاتكم، المرجو التواصل مع المكتب مباشرة.</p>
+      <div class="susp-acts">${wa}${tel}</div>
+      <p class="susp-fr" dir="ltr">L’espace client est temporairement suspendu, le temps d’accomplir les formalités relatives à la protection des données personnelles (loi 09-08). Pour toute information sur vos dossiers, merci de contacter directement le cabinet.</p></div>`;
+    $('login').className = 'susp-wrap';
   }
 
   async function login(id, secret, remember){
+    if(office.suspended) return;
     $('lmsg').textContent = ''; $('lbtn').disabled = true; $('lbtn').textContent = 'جارٍ الفتح…';
     try{
       if(id.length < 3 || secret.length < 6) throw new Error('أدخل اسم المستخدم وكلمة السر كاملين');
