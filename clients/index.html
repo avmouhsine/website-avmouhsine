@@ -364,6 +364,14 @@
   .nws .pst-pres{margin:10px 0 0;}
   .nws-vd{margin-top:10px;background:#fbfaf6;border:1px solid #efe6d2;border-inline-start:4px solid #c99a3a;border-radius:10px;padding:10px 14px;}
   .nws-vd small{font-weight:800;color:#8a6a2a;font-size:12px;} .nws-vd p{margin:4px 0 0;font-size:14px;line-height:1.9;color:#2a3b4c;white-space:pre-wrap;}
+  .nws-ev{display:flex;gap:14px;align-items:stretch;background:#fdf4df;border:1px solid #f0dcaa;border-radius:12px;padding:12px 14px;}
+  .nws-ev.none{display:block;background:#f1f4f8;border-color:#e1e8f0;color:#5b6b7b;font-weight:700;font-size:14px;}
+  .nws-cal{flex:0 0 74px;background:#103a67;color:#fff;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 4px;line-height:1.2;}
+  .nws-cal b{font-size:28px;} .nws-cal span{font-size:13px;font-weight:700;} .nws-cal small{font-size:11px;opacity:.8;}
+  .nws-evb{display:flex;flex-direction:column;gap:3px;min-width:0;} .nws-evb small{font-size:12px;font-weight:800;color:#8a6a2a;} .nws-evb b{font-size:17px;color:#1d2f44;} .nws-evb span{font-size:14px;color:#2a3b4c;}
+  .nws-note{margin-top:12px;background:#f3f7fc;border:1px solid #dbe4ee;border-inline-start:4px solid #103a67;border-radius:10px;padding:10px 14px;}
+  .nws-note small{font-weight:800;color:#103a67;font-size:12px;} .nws-note p{margin:4px 0 0;font-size:15px;line-height:1.9;color:#1d2f44;white-space:pre-wrap;}
+  .fc-vd{margin:12px 0 4px;}
   .nws-todo{margin-top:12px;border:2px solid #f2c14e;border-radius:10px;padding:8px 14px 4px;}
   .nws-todo h4{margin:2px 0 4px;font-size:14.5px;color:var(--ink);} .nws-ok{margin:4px 0 8px;color:#2f6a52;font-weight:700;font-size:13.5px;}
   .nws .pst-nx{margin:10px 0 0;}
@@ -662,27 +670,28 @@
     const icn = { presence:'🧑‍⚖️', expert:'🔬', decide:'⚖️', request:'📌', fees:'💳', exp:'🧾', doc:'🪪' };
     const NIL0 = '<span class="nil"></span>';
     const newsHtml = (c, ci)=>{
-      const P = c.ph ? (FRL() ? frPh(c.ph) : c.ph) : null, K = c.card || {};
-      const tl = (K.timeline && K.timeline.length) ? K.timeline : (c.timeline||[]).slice().sort((a,b)=> String(b.date||'').localeCompare(String(a.date||'')));
-      const last = tl[0];
+      // v123: آخر المستجدات = الموعد المقبل (التاريخ، الساعة، المكان) + ملاحظة المكتب + المطلوب منكم فقط
+      const P = c.ph ? (FRL() ? frPh(c.ph) : c.ph) : null, K = c.card || {}, N = c.note || null;
       const nxd = c.next && c.next.date;
-      const tds = (c.todo||[]).map(x=> FRL() ? { ...x, text: frTodo(x) } : x).concat(docTodos).sort((a,b)=> (a.due||'9999').localeCompare(b.due||'9999'));
-      const vt = K.verdictText || '';
+      const reqNote = N && N.req && N.text ? [{ kind:'request', text: N.text, due: (N.act && N.act.date) || '' }] : [];
+      const tds = reqNote.concat((c.todo||[]).filter(x=> x.kind!=='fees').map(x=> FRL() ? { ...x, text: frTodo(x) } : x)).concat(docTodos).sort((a,b)=> (a.due||'9999').localeCompare(b.due||'9999'));
       const ics = icsFor(c);
-      const items = [];
-      if(last) items.push(`<div class="nws-i"><small>آخر إجراء</small><b><span class="ltr">${esc(fmtShort(last.date))}</span>${last.action ? ' — ' + esc(last.action) : ''}</b>${last.decision && last.decision!==vt ? `<span>${esc(last.decision)}</span>` : ''}</div>`);
-      if(nxd) items.push(`<div class="nws-i nx"><small>${c.delib && c.delib.date===nxd ? 'تاريخ النطق بالحكم' : 'الجلسة المقبلة'}</small><b><span class="ltr">${esc(fmtShort(nxd))}</span>${c.next.time ? ` على الساعة <span class="ltr">${esc(c.next.time)}</span>` : ''}${c.next.room ? ` بالقاعة ${esc(/قاعة/.test(c.next.room) ? c.next.room : 'رقم ' + c.next.room)}` : ''}</b>${K.court || c.court ? `<span>${esc(K.court || c.court)}</span>` : ''}</div>`);
-      if(P) (P.big||[]).concat(P.facts||[]).filter(([k])=> !/الجلسة|تاريخ الجلسة/.test(k) || !nxd).slice(0,3).forEach(([k,v])=> items.push(`<div class="nws-i"><small>${esc(k)}</small><b>${esc(v)}</b></div>`));
+      let ev = null;
+      if(nxd) ev = { t: c.delib && c.delib.date===nxd ? 'تاريخ النطق بالحكم' : 'الجلسة المقبلة', date: nxd, time: c.next.time || '', place: [K.court || c.court, c.next.room ? (/قاعة/.test(c.next.room) ? c.next.room : 'القاعة رقم ' + c.next.room) : ''].filter(Boolean).join(' — ') };
+      else if(N && N.act && (N.act.date || N.act.label)) ev = { t: N.act.label || 'الإجراء المقبل', date: N.act.date, time: N.act.time || '', place: N.act.place || '' };
+      const d0 = ev && ev.date ? new Date(String(ev.date).slice(0,10) + 'T00:00:00') : null, okd = d0 && !isNaN(d0);
+      const WD = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+      const evHtml = ev ? `<div class="nws-ev">
+          ${okd ? `<div class="nws-cal"><b>${d0.getDate()}</b><span>${(FRL() ? MONTHS_FR : MONTHS)[d0.getMonth()]}</span><small>${d0.getFullYear()}</small></div>` : '<div class="nws-cal"><b>—</b></div>'}
+          <div class="nws-evb"><small>${esc(ev.t)}</small><b>${okd ? (FRL() ? '' : WD[d0.getDay()] + ' ') + esc(dt(ev.date)) : 'التاريخ يُحدَّد لاحقًا'}</b>
+            ${ev.time ? `<span>🕘 على الساعة <span class="ltr">${esc(ev.time)}</span></span>` : ''}${ev.place ? `<span>📍 ${esc(ev.place)}</span>` : ''}</div></div>`
+        : `<div class="nws-ev none">لا يوجد موعد مقبل محدد حاليًا — سنخبركم فور تحديده.</div>`;
       return `<section class="nws" data-news="${ci}"${ci===sel ? '' : ' hidden'}>
         <div class="nws-h"><span class="fc-k">آخر المستجدات :</span><span class="nws-f">الملف <span class="ltr">${esc(c.number || '—')}</span> — ${esc(c.title || '')}</span>${P ? `<span class="badge">${esc(P.label)}</span>` : ''}</div>
-        ${P ? `<div class="pst-steps">${(P.steps||[]).map((x,i)=>`<div class="${i < P.step ? 'dn' : i===P.step ? 'cur' : ''}"><i>${i < P.step ? '✓' : i+1}</i><span>${esc(x)}</span></div>`).join('')}</div>` : ''}
-        ${P && P.head ? `<div class="nws-msg k-${esc(P.k)}">${esc(P.head)}</div>` : ''}
-        ${items.length ? `<div class="nws-grid">${items.join('')}</div>` : ''}
-        ${P && P.k==='hearing' && nxd ? `<div class="pst-pres ${P.presence ? 'yes' : 'no'}">${P.presence ? '⚠️ حضوركم الشخصي مطلوب في هذه الجلسة — المرجو الحضور قبل الموعد بنصف ساعة مع بطاقة التعريف الوطنية.' : '✓ لا يلزمكم الحضور في هذه الجلسة، والمكتب ينوب عنكم.'}</div>` : ''}
-        ${vt ? `<div class="nws-vd"><small>منطوق الحكم</small><p>${esc(vt)}</p></div>` : ''}
+        ${evHtml}
+        ${N && N.text && !N.req ? `<div class="nws-note"><small>ملاحظة المكتب${N.at ? ' — ' + esc(dt(N.at)) : ''}</small><p>${esc(N.text)}</p></div>` : ''}
         <div class="nws-todo"><h4>المطلوب منكم</h4>${tds.length ? tds.map(x=>`<div class="todo k-${x.kind}"><span class="ti">${icn[x.kind]||'📌'}</span><div><b>${esc(x.text)}</b>${x.due ? `<small>قبل ${dt(x.due)}</small>` : ''}</div></div>`).join('') : '<p class="nws-ok">✓ لا شيء مطلوب منكم حاليًا في هذا الملف.</p>'}</div>
-        ${P && P.next ? `<div class="pst-nx"><b>الخطوة المقبلة:</b> ${esc(P.next)}</div>` : ''}
-        <div class="nws-foot">${P && GLOSS[P.k] ? `<details class="pst-gl"><summary>ⓘ ما معنى ذلك؟</summary><p>${esc(GLOSS[P.k])}</p></details>` : '<span></span>'}
+        <div class="nws-foot"><span></span>
           <div>${office.whatsapp ? `<a class="btn line sm" target="_blank" rel="noopener" href="${esc(waOffice('سؤال بخصوص الملف عدد ' + (c.number || c.title || '') + ':\n'))}">${ic('chat')} سؤال عن هذا الملف</a>` : ''}${ics ? `<button class="btn line sm" data-ics="${ci}">${ic('cal')} أضف الموعد إلى تقويمي</button>` : ''}</div></div>
       </section>`;
     };
@@ -801,6 +810,7 @@
           <div class="fc-badges">${c._new ? '<span class="badge new">🆕 جديد</span>' : ''}<span class="badge ${closed || (c.ph && c.ph.k==='closed') ? 'done' : ''}">${esc(c.ph ? c.ph.label : (c.status || 'جارية'))}</span></div>
         </div>
         <div class="fc-grid">${kv.map(([k,v])=>`<div class="fc-cell"><span class="fc-l">${k}</span><span class="fc-v">${v}</span></div>`).join('')}</div>
+        ${K.verdictText ? `<div class="nws-vd fc-vd"><small>منطوق الحكم</small><p>${esc(K.verdictText)}</p></div>` : ''}
         <div class="ptabs" role="tablist">${tabs.map(([k,l,n],i)=>`<button type="button" class="${i===0 ? 'on' : ''}" data-ptab="${k}">${esc(l)}${n ? ` <span>${n}</span>` : ''}</button>`).join('')}</div>
         ${tabs.map(([k,,,body],i)=>`<div class="ppanel${i===0 ? ' on' : ''}" data-ppanel="${k}">${body}</div>`).join('')}
       </article>` : `<article class="case${c._new ? ' is-new' : ''}" data-case="${ci}">
