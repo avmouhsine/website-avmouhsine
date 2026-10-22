@@ -372,6 +372,7 @@
   .nws-note{margin-top:12px;background:#f3f7fc;border:1px solid #dbe4ee;border-inline-start:4px solid #103a67;border-radius:10px;padding:10px 14px;}
   .nws-note small{font-weight:800;color:#103a67;font-size:12px;} .nws-note p{margin:4px 0 0;font-size:15px;line-height:1.9;color:#1d2f44;white-space:pre-wrap;}
   .fc-vd{margin:12px 0 4px;}
+  .nws-tl{margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);} .nws-tl > small{display:block;font-size:12px;font-weight:800;color:#103a67;margin-bottom:8px;} .nws-tl .pst-steps{margin:0;}
   .nws-todo{margin-top:12px;border:2px solid #f2c14e;border-radius:10px;padding:8px 14px 4px;}
   .nws-todo h4{margin:2px 0 4px;font-size:14.5px;color:var(--ink);} .nws-ok{margin:4px 0 8px;color:#2f6a52;font-weight:700;font-size:13.5px;}
   .nws .pst-nx{margin:10px 0 0;}
@@ -691,6 +692,7 @@
         ${evHtml}
         ${N && N.text && !N.req ? `<div class="nws-note"><small>ملاحظة المكتب${N.at ? ' — ' + esc(dt(N.at)) : ''}</small><p>${esc(N.text)}</p></div>` : ''}
         <div class="nws-todo"><h4>المطلوب منكم</h4>${tds.length ? tds.map(x=>`<div class="todo k-${x.kind}"><span class="ti">${icn[x.kind]||'📌'}</span><div><b>${esc(x.text)}</b>${x.due ? `<small>قبل ${dt(x.due)}</small>` : ''}</div></div>`).join('') : '<p class="nws-ok">✓ لا شيء مطلوب منكم حاليًا في هذا الملف.</p>'}</div>
+        ${P && (P.steps||[]).length ? `<div class="nws-tl"><small>مراحل الملف</small><div class="pst-steps">${P.steps.map((x,i)=>`<div class="${i < P.step ? 'dn' : i===P.step ? 'cur' : ''}"><i>${i < P.step ? '✓' : i+1}</i><span>${esc(x)}</span></div>`).join('')}</div></div>` : ''}
         <div class="nws-foot"><span></span>
           <div>${office.whatsapp ? `<a class="btn line sm" target="_blank" rel="noopener" href="${esc(waOffice('سؤال بخصوص الملف عدد ' + (c.number || c.title || '') + ':\n'))}">${ic('chat')} سؤال عن هذا الملف</a>` : ''}${ics ? `<button class="btn line sm" data-ics="${ci}">${ic('cal')} أضف الموعد إلى تقويمي</button>` : ''}</div></div>
       </section>`;
@@ -957,7 +959,7 @@
       <span class="ap-l">الساعة المفضلة</span><div class="ap-slots" id="ap-slots"></div>
       ${cases.length ? `<span class="ap-l">الملف المعني (اختياري)</span><select id="ap-case"><option value="">— موضوع عام —</option>${cases.map((c,i)=>`<option value="${i}">${esc((c.number ? c.number + ' — ' : '') + (c.title || ''))}</option>`).join('')}</select>` : ''}
       <span class="ap-l">موضوع الموعد (اختياري)</span><textarea id="ap-note" rows="2" placeholder="مثال: الاطلاع على مستجدات الملف، تسليم وثائق…"></textarea>
-      <p class="ap-hint">سيُرسل طلبكم إلى المكتب عبر واتساب، ويؤكد المكتب الموعد بعد مراجعة جدوله.</p>`,
+      <p class="ap-hint">سيُرسل طلبكم إلى المكتب عبر واتساب كصورة منسقة، ويؤكد المكتب الموعد بعد مراجعة جدوله.</p>`,
       `<button class="btn line" data-close>إلغاء</button><button class="btn green" id="ap-send" disabled>${ic('chat')} إرسال الطلب عبر واتساب</button>`);
     const box = ov.querySelector('#ap-slots'), send = ov.querySelector('#ap-send');
     const drawSlots = ()=>{
@@ -967,16 +969,59 @@
     drawSlots();
     ov.querySelectorAll('[data-ad]').forEach(b=> b.addEventListener('click', ()=>{ selD = Number(b.dataset.ad); selT = ''; ov.querySelectorAll('[data-ad]').forEach(x=> x.classList.toggle('on', x===b)); drawSlots(); }));
     box.addEventListener('click', e=>{ const b = e.target.closest('[data-at]'); if(!b) return; selT = b.dataset.at; drawSlots(); });
-    send.addEventListener('click', ()=>{
+    send.addEventListener('click', async ()=>{
       const x = list[selD], cs = ov.querySelector('#ap-case'), c = cs && cs.value !== '' ? cases[Number(cs.value)] : null;
       const note = ov.querySelector('#ap-note').value.trim(), who = (d.client && d.client.name) || (creds && creds.id) || '';
       const day = wd[x.d.getDay()] + ' ' + dt(x.d.getFullYear() + '-' + String(x.d.getMonth()+1).padStart(2,'0') + '-' + String(x.d.getDate()).padStart(2,'0'));
       const txt = FRL()
         ? ['Demande de rendez-vous au cabinet', 'Client : ' + who, 'Jour : ' + day, 'Heure : ' + selT, c ? 'Dossier : ' + (c.number || c.title || '') : '', note ? 'Objet : ' + note : '', '(envoyé depuis l’espace client)'].filter(Boolean).join('\n')
         : ['طلب موعد بالمكتب', 'الموكل: ' + who, 'اليوم: ' + day, 'الساعة: ' + selT, c ? 'الملف: ' + (c.number || c.title || '') : '', note ? 'الموضوع: ' + note : '', '(مرسل من بوابة الموكلين)'].filter(Boolean).join('\n');
-      const link = waOffice(txt); if(link) window.open(link, '_blank');
+      const link = waOffice(txt);
+      // v128: الطلب كصورة منسقة
+      let blob = null;
+      try{ blob = await apptImage({ who, day, time: selT, file: c ? ((c.number ? c.number + ' — ' : '') + (c.title || '')) : '', note }); }catch(e){}
       ov.remove();
+      if(blob){
+        const file = new File([blob], 'طلب-موعد.png', { type:'image/png' });
+        if(navigator.canShare && navigator.canShare({ files:[file] })){
+          try{ await navigator.share({ files:[file], text: txt }); return; }catch(e){ if(e && e.name==='AbortError') return; }
+        }
+        let copied = false;
+        try{ if(navigator.clipboard && window.ClipboardItem){ await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]); copied = true; } }catch(e){}
+        if(!copied){ const u = URL.createObjectURL(blob), a = document.createElement('a'); a.href = u; a.download = 'طلب-موعد.png'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=> URL.revokeObjectURL(u), 30000); }
+        toast(copied ? (FRL() ? '✓ Image copiée — collez-la (Ctrl+V) dans WhatsApp' : '✓ نُسخت صورة الطلب — الصقوها (Ctrl+V) في محادثة واتساب') : (FRL() ? 'Image téléchargée — joignez-la dans WhatsApp' : 'نُزّلت صورة الطلب — أرفقوها في محادثة واتساب'));
+      }
+      if(link) window.open(link, '_blank');
     });
+  }
+  function toast(m){ let t = document.getElementById('p-toast'); if(!t){ t = document.createElement('div'); t.id = 'p-toast'; t.style.cssText = 'position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#103a67;color:#fff;padding:12px 18px;border-radius:12px;font-weight:700;font-size:14px;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center;'; document.body.appendChild(t); } t.textContent = m; t.style.display = 'block'; clearTimeout(toast.t); toast.t = setTimeout(()=> t.style.display = 'none', 6000); }
+  // صورة طلب الموعد — ترسم بـ Canvas دون مكتبات خارجية
+  async function apptImage(o){
+    try{ if(document.fonts && document.fonts.ready) await document.fonts.ready; }catch(e){}
+    const fam = getComputedStyle(document.body).fontFamily || 'sans-serif', fr = FRL();
+    const W = 900, P = 48, cv = document.createElement('canvas'), g = cv.getContext('2d');
+    const rows = [[fr ? 'Client' : 'الموكل', o.who], [fr ? 'Jour' : 'اليوم', o.day], [fr ? 'Heure' : 'الساعة', o.time]].concat(o.file ? [[fr ? 'Dossier' : 'الملف', o.file]] : []).concat(o.note ? [[fr ? 'Objet' : 'الموضوع', o.note]] : []);
+    const wrap = (t, w, f)=>{ g.font = f; const out = []; let line = ''; String(t||'').split(/\s+/).forEach(wd=>{ const tt = line ? line + ' ' + wd : wd; if(g.measureText(tt).width > w && line){ out.push(line); line = wd; } else line = tt; }); if(line) out.push(line); return out.length ? out : ['']; };
+    const vf = `700 30px ${fam}`, lf = `600 22px ${fam}`, valW = W - 2*P - 40;
+    const lay = rows.map(([l, v])=> ({ l, lines: wrap(v, valW, vf) }));
+    const H = 260 + lay.reduce((t, r)=> t + 40 + r.lines.length * 42 + 18, 0) + 60;
+    cv.width = W * 2; cv.height = H * 2; g.scale(2, 2);
+    g.fillStyle = '#f4f1e8'; g.fillRect(0, 0, W, H);
+    g.fillStyle = '#fff'; g.beginPath(); (g.roundRect ? g.roundRect(20, 20, W - 40, H - 40, 22) : g.rect(20, 20, W - 40, H - 40)); g.fill();
+    g.fillStyle = '#103a67'; g.beginPath(); (g.roundRect ? g.roundRect(20, 20, W - 40, 150, [22, 22, 0, 0]) : g.rect(20, 20, W - 40, 150)); g.fill();
+    g.fillStyle = '#c99a3a'; g.fillRect(20, 168, W - 40, 5);
+    g.direction = fr ? 'ltr' : 'rtl'; g.textAlign = fr ? 'left' : 'right'; const X = fr ? P : W - P;
+    g.fillStyle = '#e9d9b0'; g.font = `600 22px ${fam}`; g.fillText(office.name || (fr ? 'Cabinet' : 'المكتب'), X, 70);
+    g.fillStyle = '#fff'; g.font = `800 40px ${fam}`; g.fillText(fr ? 'Demande de rendez-vous' : 'طلب موعد بالمكتب', X, 128);
+    let y = 230;
+    lay.forEach(({ l, lines }, i)=>{
+      g.fillStyle = '#8a6a2a'; g.font = lf; g.fillText(l, X, y); y += 40;
+      g.fillStyle = i===1 || i===2 ? '#103a67' : '#1d2f44'; g.font = vf; lines.forEach(t=>{ g.fillText(t, X, y); y += 42; });
+      y += 18; if(i < lay.length - 1){ g.fillStyle = '#e6ebf1'; g.fillRect(P, y - 30, W - 2*P, 1.5); }
+    });
+    g.fillStyle = '#6b7a8a'; g.font = `500 19px ${fam}`; g.textAlign = 'center';
+    g.fillText(fr ? 'Envoyé depuis l’espace client — en attente de confirmation du cabinet' : 'مرسل من بوابة الموكلين — في انتظار تأكيد المكتب', W/2, H - 50);
+    return await new Promise((res, rej)=> cv.toBlob(b=> b ? res(b) : rej(new Error('img')), 'image/png'));
   }
 
   // ---- الخصوصية والسر المهني
